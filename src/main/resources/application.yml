@@ -1,0 +1,31 @@
+server:
+  port: 8080
+  compression:
+    enabled: true
+
+spring:
+  jpa:
+    database: h2
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: create-drop
+    show-sql: true
+
+  datasource:
+    initialization-mode: always
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  h2:
+    console:
+      enabled: true
+      path: /db
+      settings:
+        web-allow-others: true
+
+logging:
+  config: classpath:log4j2.yml
