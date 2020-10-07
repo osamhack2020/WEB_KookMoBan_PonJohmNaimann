@@ -4,6 +4,8 @@ import dev.riyenas.osam.domain.device.Device;
 import dev.riyenas.osam.domain.device.DeviceRepository;
 import dev.riyenas.osam.domain.soldier.Soldier;
 import dev.riyenas.osam.domain.soldier.SoldierRepository;
+import dev.riyenas.osam.service.DeviceReturnService;
+import dev.riyenas.osam.web.dto.app.SoldierSignUpRequestDto;
 import dev.riyenas.osam.web.dto.soldier.SoldierResponseDto;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -15,6 +17,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -26,6 +31,9 @@ public class SoldierTest {
 
     @Autowired
     private DeviceRepository deviceRepository;
+
+    @Autowired
+    private DeviceReturnService deviceReturnService;
 
     @Test
     public void soldierCreate() {
@@ -81,5 +89,56 @@ public class SoldierTest {
 
         soldierRepository.save(soldier);
         soldierRepository.deleteById(1L);
+
+        List<Device> devices = deviceRepository.findAll();
+
+        Assertions.assertTrue(devices.isEmpty());
+    }
+
+    @Test
+    @Transactional
+    public void strategySoldierCreate1() {
+        SoldierSignUpRequestDto dto1 = SoldierSignUpRequestDto.builder()
+                .serviceNumber("20-111111")
+                .serialNumber("A")
+                .build();
+
+        SoldierSignUpRequestDto dto2 = SoldierSignUpRequestDto.builder()
+                .serviceNumber("20-111111")
+                .serialNumber("B")
+                .build();
+
+        deviceReturnService.createSoldier(dto1);
+
+        deviceReturnService.createSoldier(dto2);
+
+        Optional<Soldier> soldier = soldierRepository.findById(1L);
+
+        Assertions.assertEquals(soldier.get().getDevices().get(0).getSerialNumber(), "A");
+        Assertions.assertEquals(soldier.get().getDevices().get(1).getSerialNumber(), "B");
+    }
+
+    @Test
+    @Transactional
+    public void strategySoldierCreate2() {
+        SoldierSignUpRequestDto dto1 = SoldierSignUpRequestDto.builder()
+                .serviceNumber("20-111111")
+                .serialNumber("A")
+                .build();
+
+        SoldierSignUpRequestDto dto2 = SoldierSignUpRequestDto.builder()
+                .serviceNumber("20-222222")
+                .serialNumber("A")
+                .build();
+
+        deviceReturnService.createSoldier(dto1);
+
+        deviceReturnService.createSoldier(dto2);
+
+        Optional<Soldier> soldier1 = soldierRepository.findById(1L);
+        Optional<Soldier> soldier2 = soldierRepository.findById(2L);
+
+        Assertions.assertEquals(soldier1.get().getDevices().get(0).getSerialNumber(), "A");
+        Assertions.assertEquals(soldier2.get().getDevices().get(0).getSerialNumber(), "A");
     }
 }
