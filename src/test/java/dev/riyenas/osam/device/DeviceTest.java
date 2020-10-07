@@ -2,7 +2,6 @@ package dev.riyenas.osam.device;
 
 import dev.riyenas.osam.domain.device.Device;
 import dev.riyenas.osam.domain.device.DeviceRepository;
-import dev.riyenas.osam.web.dto.device.DeviceCreateRequestDto;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
@@ -23,15 +22,15 @@ public class DeviceTest {
 
     @Test
     public void deviceCreate() {
-        DeviceCreateRequestDto dto = DeviceCreateRequestDto.builder()
+        Device device = Device.builder()
                 .manufacturer("삼성")
                 .serialNumber("S/NABCDEFGHIJKLMN")
                 .type("phone")
                 .phoneNumber("010-1234-5678")
                 .build();
 
-        Device device = deviceRepository.save(dto.toEntity());
+        Device returnValue = deviceRepository.save(device);
 
-        Assertions.assertEquals(dto.getSerialNumber(), device.getSerialNumber());
+        Assertions.assertEquals(device.getSerialNumber(), returnValue.getSerialNumber());
     }
 }
