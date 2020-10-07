@@ -1,5 +1,9 @@
 package dev.riyenas.osam.domain.device;
 
-public interface DeviceCustomRepository {
+import java.util.Optional;
 
+public interface DeviceCustomRepository {
+    Optional<Device> findBySerialNumber(String serialNumber);
+
+    Optional<Device> findByType(String type);
 }
