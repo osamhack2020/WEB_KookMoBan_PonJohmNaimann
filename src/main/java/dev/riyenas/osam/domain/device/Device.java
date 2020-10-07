@@ -1,21 +1,17 @@
 package dev.riyenas.osam.domain.device;
 
+import dev.riyenas.osam.domain.soldier.Soldier;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.UUID;
 
 @NoArgsConstructor
 @Getter
 @Entity
-@ToString
 public class Device {
 
     @Id
@@ -29,6 +25,10 @@ public class Device {
 
     private String uuid;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "soldier_id")
+    private Soldier soldier;
+
     @Builder
     public Device(Long id, String serialNumber, String type, String manufacturer, String phoneNumber) {
         this.id = id;
@@ -39,5 +39,9 @@ public class Device {
         this.uuid = String.format("%040d",
                 new BigInteger(UUID.randomUUID().toString().replace("-", ""), 16)
         );
+    }
+
+    public void setSoldier(Soldier soldier) {
+        this.soldier = soldier;
     }
 }
