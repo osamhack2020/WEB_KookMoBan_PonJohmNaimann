@@ -5,10 +5,14 @@ import dev.riyenas.osam.domain.device.DeviceRepository;
 import dev.riyenas.osam.domain.soldier.Soldier;
 import dev.riyenas.osam.domain.soldier.SoldierRepository;
 import dev.riyenas.osam.web.dto.app.SoldierSignUpRequestDto;
+import dev.riyenas.osam.web.dto.soldier.SoldierDeviceResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Log4j2
 @Service
@@ -31,5 +35,22 @@ public class DeviceReturnService {
         soldierRepository.save(soldier);
 
         return device.getUuid();
+    }
+
+    @Transactional(readOnly = true)
+    public List<SoldierDeviceResponseDto> findAll() {
+        List<SoldierDeviceResponseDto> dtos = new ArrayList<>();
+        List<Soldier> soldiers = soldierRepository.findAll();
+
+        for(Soldier soldier : soldiers) {
+            List<Device> devices = soldier.getDevices();
+
+            for(Device device : devices) {
+                SoldierDeviceResponseDto dto = new SoldierDeviceResponseDto(soldier, device);
+                dtos.add(dto);
+            }
+        }
+
+        return dtos;
     }
 }
