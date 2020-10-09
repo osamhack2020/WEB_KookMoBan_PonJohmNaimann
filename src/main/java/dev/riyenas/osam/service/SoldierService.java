@@ -38,10 +38,9 @@ public class SoldierService {
         Device device = deviceRepository.findBySerialNumber(info.getSerialNumber())
                 .orElse(info.toDeviceEntity());
 
-        admin.addSoldier(soldier);
-        adminRepository.save(admin);
-
         soldier.addDevice(device);
+        soldier.setAdmin(admin);
+
         soldierRepository.save(soldier);
 
         return device.getUuid();
