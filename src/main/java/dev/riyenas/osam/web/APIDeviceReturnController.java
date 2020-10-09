@@ -1,6 +1,6 @@
 package dev.riyenas.osam.web;
 
-import dev.riyenas.osam.service.DeviceReturnService;
+import dev.riyenas.osam.service.SoldierService;
 import dev.riyenas.osam.web.dto.app.SoldierSignUpRequestDto;
 import dev.riyenas.osam.web.dto.soldier.SoldierDeviceResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -15,15 +15,15 @@ import java.util.List;
 @RequestMapping("/api/soldier/")
 public class APIDeviceReturnController {
 
-    private final DeviceReturnService deviceReturnService;
+    private final SoldierService soldierService;
 
     @PostMapping("create")
     public String create(@RequestBody SoldierSignUpRequestDto soldierSignUpRequestDto) {
-        return deviceReturnService.createSoldier(soldierSignUpRequestDto);
+        return soldierService.createSoldier(soldierSignUpRequestDto);
     }
 
     @GetMapping("find/all")
     public List<SoldierDeviceResponseDto> findAll() {
-        return deviceReturnService.findAll();
+        return soldierService.findAll();
     }
 }

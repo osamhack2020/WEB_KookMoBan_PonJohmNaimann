@@ -1,5 +1,6 @@
 package dev.riyenas.osam.domain.soldier;
 
+import dev.riyenas.osam.domain.admin.Admin;
 import dev.riyenas.osam.domain.device.Device;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,6 +26,10 @@ public class Soldier {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "soldier", orphanRemoval = true)
     private final List<Device> devices = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "admin_id")
+    private Admin admin;
+
     @Builder
     public Soldier(Long id, String name, String rank, String unit, String serviceNumber) {
         this.id = id;
@@ -37,5 +42,9 @@ public class Soldier {
     public void addDevice(Device device) {
         devices.add(device);
         device.setSoldier(this);
+    }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
     }
 }

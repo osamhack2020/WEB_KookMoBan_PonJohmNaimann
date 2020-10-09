@@ -4,7 +4,7 @@ import dev.riyenas.osam.domain.device.Device;
 import dev.riyenas.osam.domain.device.DeviceRepository;
 import dev.riyenas.osam.domain.soldier.Soldier;
 import dev.riyenas.osam.domain.soldier.SoldierRepository;
-import dev.riyenas.osam.service.DeviceReturnService;
+import dev.riyenas.osam.service.SoldierService;
 import dev.riyenas.osam.web.dto.app.SoldierSignUpRequestDto;
 import dev.riyenas.osam.web.dto.soldier.SoldierResponseDto;
 import org.junit.Test;
@@ -32,7 +32,7 @@ public class SoldierTest {
     private DeviceRepository deviceRepository;
 
     @Autowired
-    private DeviceReturnService deviceReturnService;
+    private SoldierService soldierService;
 
     @Test
     public void soldierCreate() {
@@ -107,9 +107,9 @@ public class SoldierTest {
                 .serialNumber("B")
                 .build();
 
-        deviceReturnService.createSoldier(dto1);
+        soldierService.createSoldier(dto1);
 
-        deviceReturnService.createSoldier(dto2);
+        soldierService.createSoldier(dto2);
 
         Optional<Soldier> soldier = soldierRepository.findById(1L);
 
@@ -130,9 +130,9 @@ public class SoldierTest {
                 .serialNumber("A")
                 .build();
 
-        deviceReturnService.createSoldier(dto1);
+        soldierService.createSoldier(dto1);
 
-        deviceReturnService.createSoldier(dto2);
+        soldierService.createSoldier(dto2);
 
         Optional<Soldier> soldier1 = soldierRepository.findById(1L);
         Optional<Soldier> soldier2 = soldierRepository.findById(2L);

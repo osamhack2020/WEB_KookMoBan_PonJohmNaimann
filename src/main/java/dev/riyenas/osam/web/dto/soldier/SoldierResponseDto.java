@@ -2,6 +2,7 @@
 package dev.riyenas.osam.web.dto.soldier;
 
 import dev.riyenas.osam.domain.soldier.Soldier;
+import dev.riyenas.osam.web.dto.admin.AdminResponseDto;
 import dev.riyenas.osam.web.dto.device.DeviceResponseDto;
 import lombok.Getter;
 import lombok.ToString;
@@ -17,6 +18,7 @@ public class SoldierResponseDto {
     private String name;
     private String rank;
     private String unit;
+    private AdminResponseDto admin;
     private List<DeviceResponseDto> devices;
 
     public SoldierResponseDto(Soldier entity) {
@@ -28,5 +30,6 @@ public class SoldierResponseDto {
         this.devices = entity.getDevices().stream()
                 .map(DeviceResponseDto::new)
                 .collect(Collectors.toList());
+        this.admin = new AdminResponseDto(entity.getAdmin());
     }
 }
