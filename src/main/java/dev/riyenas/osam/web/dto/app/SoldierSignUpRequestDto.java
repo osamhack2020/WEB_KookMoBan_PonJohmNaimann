@@ -17,9 +17,11 @@ public class SoldierSignUpRequestDto {
     private String type;
     private String manufacturer;
     private String phoneNumber;
+    private String signUpCode;
 
     @Builder
-    public SoldierSignUpRequestDto(String name, String serviceNumber, String rank, String unit, String serialNumber, String type, String manufacturer, String phoneNumber) {
+    public SoldierSignUpRequestDto(String name, String serviceNumber, String rank, String unit, String serialNumber,
+                                   String type, String manufacturer, String phoneNumber, String signUpCode) {
         this.name = name;
         this.serviceNumber = serviceNumber;
         this.rank = rank;
@@ -28,6 +30,7 @@ public class SoldierSignUpRequestDto {
         this.type = type;
         this.manufacturer = manufacturer;
         this.phoneNumber = phoneNumber;
+        this.signUpCode = signUpCode;
     }
 
     public Soldier toSoldierEntity() {
