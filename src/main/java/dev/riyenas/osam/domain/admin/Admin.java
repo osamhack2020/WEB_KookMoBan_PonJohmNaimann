@@ -26,11 +26,6 @@ public class Admin {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "admin", orphanRemoval = true)
     private final List<Soldier> soldiers = new ArrayList<>();
 
-    public void addSoldier(Soldier soldier) {
-        soldiers.add(soldier);
-        soldier.setAdmin(this);
-    }
-
     @Builder
     public Admin(Long id, String serviceNumber, String password, String signUpCode, String name) {
         this.id = id;
