@@ -3,6 +3,7 @@ package dev.riyenas.osam.domain.soldier;
 import dev.riyenas.osam.domain.device.Device;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
+import java.util.List;
 import java.util.Optional;
 
 public class SoldierRepositoryImpl extends QuerydslRepositorySupport implements SoldierCustomRepository {
@@ -19,4 +20,15 @@ public class SoldierRepositoryImpl extends QuerydslRepositorySupport implements 
                 .where(soldier.serviceNumber.eq(serviceNumber))
                 .fetchOne());
     }
+
+    @Override
+    public List<Soldier> findByAdminServiceNumber(String adminServiceNumber) {
+        final QSoldier soldier = QSoldier.soldier;
+
+        return from(soldier)
+                .where(soldier.admin.serviceNumber.eq(adminServiceNumber))
+                .fetch();
+    }
+
+
 }

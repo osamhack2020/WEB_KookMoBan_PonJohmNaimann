@@ -26,4 +26,10 @@ public class APIDeviceReturnController {
     public List<SoldierDeviceResponseDto> findAll() {
         return soldierService.findAll();
     }
+
+    @GetMapping("find/admin/serviceNumber/{adminServiceNumber}")
+    public List<SoldierDeviceResponseDto> findByAdminServiceNumber(@PathVariable String adminServiceNumber) {
+        log.info(adminServiceNumber);
+        return soldierService.findByAdminServiceNumber(adminServiceNumber);
+    }
 }
