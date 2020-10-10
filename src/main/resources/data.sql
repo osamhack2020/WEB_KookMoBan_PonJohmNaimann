@@ -1,5 +1,5 @@
 -- Admin
-INSERT INTO admin(id, serviceNumber, password, name, signUpCode) VALUES (1, '20-123465', '1234', '중대장', '88888888');
+INSERT INTO admin(id, serviceNumber, password, name, signUpCode) VALUES (1, '20-123456', '1234', '중대장', '88888888');
 
 -- Soldier
 INSERT INTO soldier(id, serviceNumber, name, rank, unit, admin_id) VALUES (1, '11-111111', '강동민', '병장', '육군', 1);

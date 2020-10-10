@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Log4j2
 @Service
@@ -47,10 +48,30 @@ public class SoldierService {
     }
 
     @Transactional(readOnly = true)
+    public List<SoldierDeviceResponseDto> findByAdminServiceNumber(String adminServiceNumber) {
+        List<SoldierDeviceResponseDto> dtos = new ArrayList<>();
+        List<Soldier> soldiers = Optional.ofNullable(soldierRepository.findByAdminServiceNumber(adminServiceNumber))
+                .filter(list -> !list.isEmpty())
+                .orElseThrow(() ->
+                        new IllegalArgumentException("해당 관리자가 지정된 병사를 조회할수 없습니다.")
+                );
+
+        return getSoldierDeviceResponseDtos(soldiers, dtos);
+    }
+
+    @Transactional(readOnly = true)
     public List<SoldierDeviceResponseDto> findAll() {
         List<SoldierDeviceResponseDto> dtos = new ArrayList<>();
-        List<Soldier> soldiers = soldierRepository.findAll();
+        List<Soldier> soldiers = Optional.ofNullable(soldierRepository.findAll())
+                .filter(list -> !list.isEmpty())
+                .orElseThrow(() ->
+                        new IllegalArgumentException("등록된 병사가 없습니다.")
+                );
 
+        return getSoldierDeviceResponseDtos(soldiers, dtos);
+    }
+
+    private List<SoldierDeviceResponseDto> getSoldierDeviceResponseDtos(List<Soldier> soldiers, List<SoldierDeviceResponseDto> dtos) {
         for(Soldier soldier : soldiers) {
             List<Device> devices = soldier.getDevices();
 
