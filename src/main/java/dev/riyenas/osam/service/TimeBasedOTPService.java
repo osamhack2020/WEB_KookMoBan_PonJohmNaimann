@@ -2,6 +2,8 @@ package dev.riyenas.osam.service;
 
 import dev.riyenas.osam.domain.auth.CryptoType;
 import dev.riyenas.osam.domain.auth.TimeBasedOTP;
+import dev.riyenas.osam.domain.device.Device;
+import dev.riyenas.osam.domain.device.DeviceRepository;
 import dev.riyenas.osam.web.dto.iot.TOTPValidRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -13,6 +15,8 @@ import java.util.Calendar;
 @Service
 @RequiredArgsConstructor
 public class TimeBasedOTPService {
+
+    private final DeviceRepository deviceRepository;
 
     public String generateByCurrentTime(String seed) {
 
@@ -34,11 +38,13 @@ public class TimeBasedOTPService {
 
         String steps = TimeBasedOTP.calcSteps(dto.getTimeInMillis() / 1000, 0L, 10L);
 
-        String resultTOTP = TimeBasedOTP.generateTOTP(dto.getSeed(), steps, "8", CryptoType.HmacSHA512.toString());
+        Device device = deviceRepository.findById(dto.getDeviceId()).orElseThrow(() ->
+                new IllegalArgumentException("모바일 기기를 조회 할수 없습니다.")
+        );
+
+        String resultTOTP = TimeBasedOTP.generateTOTP(device.getUuid(), steps, "8", CryptoType.HmacSHA512.toString());
         String expectedTOTP = dto.getExpectedTOTP();
 
-        log.info(resultTOTP + " : " + expectedTOTP);
-
-        return resultTOTP.equals(expectedTOTP) ? true : false;
+        return resultTOTP.equals(expectedTOTP);
     }
 }

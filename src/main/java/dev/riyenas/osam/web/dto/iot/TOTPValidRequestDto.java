@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 public class TOTPValidRequestDto {
     private String expectedTOTP;
     private Long timeInMillis;
-    private String seed;
+    private Long deviceId;
 
     @Builder
-    public TOTPValidRequestDto(String expectedTOTP, Long timeInMillis, String seed) {
+    public TOTPValidRequestDto(String expectedTOTP, Long timeInMillis, Long deviceId) {
         this.expectedTOTP = expectedTOTP;
         this.timeInMillis = timeInMillis;
-        this.seed = seed;
+        this.deviceId = deviceId;
     }
 }
