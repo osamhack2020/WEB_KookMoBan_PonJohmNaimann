@@ -1,27 +1,22 @@
 package dev.riyenas.osam.totp;
 
-import dev.riyenas.osam.domain.admin.AdminRepository;
 import dev.riyenas.osam.domain.auth.CryptoType;
 import dev.riyenas.osam.domain.auth.TimeBasedOTP;
 import dev.riyenas.osam.domain.device.Device;
 import dev.riyenas.osam.domain.device.DeviceRepository;
-import dev.riyenas.osam.domain.soldier.SoldierRepository;
 import dev.riyenas.osam.service.TimeBasedOTPService;
 import dev.riyenas.osam.web.dto.iot.TOTPValidRequestDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Calendar;
+import javax.transaction.Transactional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(properties = "classpath:application.yml")
@@ -58,6 +53,7 @@ public class TimeBasedOTPTest {
     }
 
     @Test
+    @Transactional
     public void isValidTimeBasedOtp() {
         Long timeInMillis = 1602338274597L; //Sat Oct 10 2020 22:57:54
 

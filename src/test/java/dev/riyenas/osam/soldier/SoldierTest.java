@@ -1,5 +1,7 @@
 package dev.riyenas.osam.soldier;
 
+import dev.riyenas.osam.domain.admin.Admin;
+import dev.riyenas.osam.domain.admin.AdminRepository;
 import dev.riyenas.osam.domain.device.Device;
 import dev.riyenas.osam.domain.device.DeviceRepository;
 import dev.riyenas.osam.domain.soldier.Soldier;
@@ -19,6 +21,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -32,9 +35,13 @@ public class SoldierTest {
     private DeviceRepository deviceRepository;
 
     @Autowired
+    private AdminRepository adminRepository;
+
+    @Autowired
     private SoldierService soldierService;
 
     @Test
+    @Transactional
     public void soldierCreate() {
         Soldier soldier = Soldier.builder()
                 .serviceNumber("19-123456")
@@ -50,7 +57,15 @@ public class SoldierTest {
                 .phoneNumber("010-1234-5678")
                 .build();
 
+        Admin admin = Admin.builder()
+                .name("관리자")
+                .serviceNumber("19-123456")
+                .password("123456")
+                .signUpCode("8888888")
+                .build();
+
         soldier.addDevice(device);
+        soldier.setAdmin(admin);
 
         Soldier soldierInfo = soldierRepository.save(soldier);
 
@@ -87,7 +102,7 @@ public class SoldierTest {
         soldier.addDevice(device2);
 
         soldierRepository.save(soldier);
-        soldierRepository.deleteById(1L);
+        soldierRepository.deleteById(2L);
 
         List<Device> devices = deviceRepository.findAll();
 
@@ -97,21 +112,31 @@ public class SoldierTest {
     @Test
     @Transactional
     public void strategySoldierCreate1() {
+        Admin admin = Admin.builder()
+                .name("관리자")
+                .signUpCode("88888888")
+                .build();
+
+        adminRepository.save(admin);
+
         SoldierSignUpRequestDto dto1 = SoldierSignUpRequestDto.builder()
                 .serviceNumber("20-111111")
                 .serialNumber("A")
+                .signUpCode("88888888")
                 .build();
 
         SoldierSignUpRequestDto dto2 = SoldierSignUpRequestDto.builder()
                 .serviceNumber("20-111111")
                 .serialNumber("B")
+                .signUpCode("88888888")
                 .build();
 
         soldierService.createSoldier(dto1);
-
         soldierService.createSoldier(dto2);
 
-        Optional<Soldier> soldier = soldierRepository.findById(1L);
+        log.info(soldierRepository.findAll().stream().map(SoldierResponseDto::new).collect(Collectors.toList()).toString());
+
+        Optional<Soldier> soldier = soldierRepository.findById(3L);
 
         Assertions.assertEquals(soldier.get().getDevices().get(0).getSerialNumber(), "A");
         Assertions.assertEquals(soldier.get().getDevices().get(1).getSerialNumber(), "B");
@@ -120,22 +145,30 @@ public class SoldierTest {
     @Test
     @Transactional
     public void strategySoldierCreate2() {
+        Admin admin = Admin.builder()
+                .name("관리자")
+                .signUpCode("88888888")
+                .build();
+
+        adminRepository.save(admin);
+
         SoldierSignUpRequestDto dto1 = SoldierSignUpRequestDto.builder()
                 .serviceNumber("20-111111")
                 .serialNumber("A")
+                .signUpCode("88888888")
                 .build();
 
         SoldierSignUpRequestDto dto2 = SoldierSignUpRequestDto.builder()
                 .serviceNumber("20-222222")
                 .serialNumber("A")
+                .signUpCode("88888888")
                 .build();
 
         soldierService.createSoldier(dto1);
-
         soldierService.createSoldier(dto2);
 
-        Optional<Soldier> soldier1 = soldierRepository.findById(1L);
-        Optional<Soldier> soldier2 = soldierRepository.findById(2L);
+        Optional<Soldier> soldier1 = soldierRepository.findById(4L);
+        Optional<Soldier> soldier2 = soldierRepository.findById(5L);
 
         Assertions.assertEquals(soldier1.get().getDevices().get(0).getSerialNumber(), "A");
         Assertions.assertEquals(soldier2.get().getDevices().get(0).getSerialNumber(), "A");
