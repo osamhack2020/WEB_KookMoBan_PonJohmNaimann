@@ -101,76 +101,11 @@ public class SoldierTest {
         soldier.addDevice(device1);
         soldier.addDevice(device2);
 
-        soldierRepository.save(soldier);
-        soldierRepository.deleteById(2L);
+        Long soldierId = soldierRepository.save(soldier).getId();
+        soldierRepository.deleteById(soldierId);
 
         List<Device> devices = deviceRepository.findAll();
 
         Assertions.assertTrue(devices.isEmpty());
-    }
-
-    @Test
-    @Transactional
-    public void strategySoldierCreate1() {
-        Admin admin = Admin.builder()
-                .name("관리자")
-                .signUpCode("88888888")
-                .build();
-
-        adminRepository.save(admin);
-
-        SoldierSignUpRequestDto dto1 = SoldierSignUpRequestDto.builder()
-                .serviceNumber("20-111111")
-                .serialNumber("A")
-                .signUpCode("88888888")
-                .build();
-
-        SoldierSignUpRequestDto dto2 = SoldierSignUpRequestDto.builder()
-                .serviceNumber("20-111111")
-                .serialNumber("B")
-                .signUpCode("88888888")
-                .build();
-
-        soldierService.createSoldier(dto1);
-        soldierService.createSoldier(dto2);
-
-        log.info(soldierRepository.findAll().stream().map(SoldierResponseDto::new).collect(Collectors.toList()).toString());
-
-        Optional<Soldier> soldier = soldierRepository.findById(3L);
-
-        Assertions.assertEquals(soldier.get().getDevices().get(0).getSerialNumber(), "A");
-        Assertions.assertEquals(soldier.get().getDevices().get(1).getSerialNumber(), "B");
-    }
-
-    @Test
-    @Transactional
-    public void strategySoldierCreate2() {
-        Admin admin = Admin.builder()
-                .name("관리자")
-                .signUpCode("88888888")
-                .build();
-
-        adminRepository.save(admin);
-
-        SoldierSignUpRequestDto dto1 = SoldierSignUpRequestDto.builder()
-                .serviceNumber("20-111111")
-                .serialNumber("A")
-                .signUpCode("88888888")
-                .build();
-
-        SoldierSignUpRequestDto dto2 = SoldierSignUpRequestDto.builder()
-                .serviceNumber("20-222222")
-                .serialNumber("A")
-                .signUpCode("88888888")
-                .build();
-
-        soldierService.createSoldier(dto1);
-        soldierService.createSoldier(dto2);
-
-        Optional<Soldier> soldier1 = soldierRepository.findById(4L);
-        Optional<Soldier> soldier2 = soldierRepository.findById(5L);
-
-        Assertions.assertEquals(soldier1.get().getDevices().get(0).getSerialNumber(), "A");
-        Assertions.assertEquals(soldier2.get().getDevices().get(0).getSerialNumber(), "A");
     }
 }
