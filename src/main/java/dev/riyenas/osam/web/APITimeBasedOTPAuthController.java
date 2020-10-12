@@ -1,10 +1,14 @@
 package dev.riyenas.osam.web;
 
+import com.google.zxing.WriterException;
 import dev.riyenas.osam.service.TimeBasedOTPService;
 import dev.riyenas.osam.web.dto.iot.TOTPValidRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @Log4j2
 @RequiredArgsConstructor
@@ -20,12 +24,23 @@ public class APITimeBasedOTPAuthController {
     }
 
     @GetMapping("generate/seed/{seed}")
-    public String generate(@PathVariable String seed) {
+    public String generateBySeed(@PathVariable String seed) {
         return timeBasedOTPService.generateByCurrentTime(seed);
     }
+
+    @GetMapping("generate/device/{deviceId}")
+    public String generateByDeviceId(@PathVariable Long deviceId) {
+        return timeBasedOTPService.generateByCurrentTime(deviceId);
+    }
+
 
     @PostMapping("valid")
     public Boolean valid(@RequestBody TOTPValidRequestDto dto) {
         return timeBasedOTPService.isValidTimeBasedOtp(dto);
+    }
+
+    @GetMapping(value = "transfer/qrcode/{deviceId}", produces = MediaType.IMAGE_PNG_VALUE)
+    public @ResponseBody byte[] qrcode(@PathVariable Long deviceId) throws WriterException, IOException {
+        return timeBasedOTPService.transferQRCode(deviceId);
     }
 }
