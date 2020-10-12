@@ -7,7 +7,7 @@ INSERT INTO soldier(id, serviceNumber, name, rank, unit, admin_id) VALUES (2, '2
 INSERT INTO soldier(id, serviceNumber, name, rank, unit, admin_id) VALUES (3, '33-333333', '박찬정', '병장', '육군', 1);
 
 -- Device
-INSERT INTO device(id, serialNumber, type, manufacturer, phoneNumber, uuid, soldier_id) VALUES (1, 'S/N11111', 'PHONE' , 'Samsung', '010-1111-1111', '11111', 1);
-INSERT INTO device(id, serialNumber, type, manufacturer, phoneNumber, uuid, soldier_id) VALUES (2, 'S/N22222', 'PHONE' , 'LG', '010-2222-2222', '22222', 2);
-INSERT INTO device(id, serialNumber, type, manufacturer, phoneNumber, uuid, soldier_id) VALUES (3, 'S/N33333', 'PHONE' , 'Apple', '010-3333-3333', '33333', 3);
-INSERT INTO device(id, serialNumber, type, manufacturer, phoneNumber, uuid, soldier_id) VALUES (4, 'S/N44444', 'TABLET' , 'Samsung', null, '44444', 3);
+INSERT INTO device(id, serialNumber, type, manufacturer, phoneNumber, uuid, soldier_id) VALUES (1, 'S/N11111', 'PHONE' , 'Samsung', '010-1111-1111', '0083064714901929041789047456568262994694', 1);
+INSERT INTO device(id, serialNumber, type, manufacturer, phoneNumber, uuid, soldier_id) VALUES (2, 'S/N22222', 'PHONE' , 'LG', '010-2222-2222', '0322916224103421907809789840587232299950', 2);
+INSERT INTO device(id, serialNumber, type, manufacturer, phoneNumber, uuid, soldier_id) VALUES (3, 'S/N33333', 'PHONE' , 'Apple', '010-3333-3333', '0080989203580441318214195208856647457710', 3);
+INSERT INTO device(id, serialNumber, type, manufacturer, phoneNumber, uuid, soldier_id) VALUES (4, 'S/N44444', 'TABLET' , 'Samsung', null, '0332655524119971223995431936078693886759', 3);
