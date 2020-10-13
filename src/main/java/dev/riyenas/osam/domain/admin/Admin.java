@@ -1,5 +1,6 @@
 package dev.riyenas.osam.domain.admin;
 
+import dev.riyenas.osam.domain.rule.Rule;
 import dev.riyenas.osam.domain.soldier.Soldier;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,6 +26,9 @@ public class Admin {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "admin", orphanRemoval = true)
     private final List<Soldier> soldiers = new ArrayList<>();
+
+    @OneToOne(mappedBy = "admin")
+    private Rule rule;
 
     @Builder
     public Admin(Long id, String serviceNumber, String password, String signUpCode, String name) {
