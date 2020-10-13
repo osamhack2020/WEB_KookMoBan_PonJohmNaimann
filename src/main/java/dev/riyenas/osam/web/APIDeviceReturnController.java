@@ -1,12 +1,17 @@
 package dev.riyenas.osam.web;
 
+import dev.riyenas.osam.service.ReturnLogService;
 import dev.riyenas.osam.service.SoldierService;
 import dev.riyenas.osam.web.dto.app.SoldierSignUpRequestDto;
+import dev.riyenas.osam.web.dto.iot.DeviceReturnRequestDto;
+import dev.riyenas.osam.web.dto.returnLog.ReturnLogResponseDto;
 import dev.riyenas.osam.web.dto.soldier.SoldierDeviceResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @Log4j2
@@ -16,6 +21,7 @@ import java.util.List;
 public class APIDeviceReturnController {
 
     private final SoldierService soldierService;
+    private final ReturnLogService returnLogService;
 
     @PostMapping("create")
     public String create(@RequestBody SoldierSignUpRequestDto soldierSignUpRequestDto) {
@@ -31,5 +37,15 @@ public class APIDeviceReturnController {
     public List<SoldierDeviceResponseDto> findByAdminServiceNumber(@PathVariable String adminServiceNumber) {
         log.info(adminServiceNumber);
         return soldierService.findByAdminServiceNumber(adminServiceNumber);
+    }
+
+    @PostMapping(value = "device/log/create", produces = MediaType.IMAGE_JPEG_VALUE)
+    public @ResponseBody byte[] returnLogCreate(@RequestBody DeviceReturnRequestDto dto) throws ParseException {
+        return returnLogService.saveReturnLog(dto);
+    }
+
+    @GetMapping(value = "device/log/find/id/{id}")
+    public ReturnLogResponseDto test(@PathVariable Long id) {
+        return returnLogService.findById(id);
     }
 }

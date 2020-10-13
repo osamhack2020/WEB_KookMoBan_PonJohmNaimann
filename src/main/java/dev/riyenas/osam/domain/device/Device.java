@@ -1,5 +1,6 @@
 package dev.riyenas.osam.domain.device;
 
+import dev.riyenas.osam.domain.log.ReturnLog;
 import dev.riyenas.osam.domain.soldier.Soldier;
 import lombok.Builder;
 import lombok.Getter;
@@ -7,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -28,6 +31,9 @@ public class Device {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "soldier_id")
     private Soldier soldier;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "device", orphanRemoval = true)
+    private final List<ReturnLog> returnLogs = new ArrayList<>();
 
     @Builder
     public Device(Long id, String serialNumber, String type, String manufacturer, String phoneNumber) {
