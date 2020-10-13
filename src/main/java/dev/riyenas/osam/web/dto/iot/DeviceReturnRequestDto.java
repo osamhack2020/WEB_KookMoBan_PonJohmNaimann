@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
+import static dev.riyenas.osam.service.RuleService.millisToDate;
 
 @Getter
 @NoArgsConstructor
@@ -22,12 +22,5 @@ public class DeviceReturnRequestDto {
                 .weight(weight)
                 .photo(photo)
                 .build();
-    }
-
-    public Date millisToDate(Long returnTime) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        Date timeInDate = new Date(returnTime);
-        String timeInFormat = sdf.format(timeInDate);
-        return new SimpleDateFormat("yyyy-mm-dd HH:mm:ss").parse(timeInFormat);
     }
 }

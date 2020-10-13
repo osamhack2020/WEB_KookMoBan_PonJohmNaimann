@@ -1,6 +1,7 @@
 package dev.riyenas.osam.web;
 
 import dev.riyenas.osam.service.ReturnLogService;
+import dev.riyenas.osam.service.RuleService;
 import dev.riyenas.osam.service.SoldierService;
 import dev.riyenas.osam.web.dto.app.SoldierSignUpRequestDto;
 import dev.riyenas.osam.web.dto.iot.DeviceReturnRequestDto;
@@ -22,6 +23,7 @@ public class APIDeviceReturnController {
 
     private final SoldierService soldierService;
     private final ReturnLogService returnLogService;
+    private final RuleService ruleService;
 
     @PostMapping("create")
     public String create(@RequestBody SoldierSignUpRequestDto soldierSignUpRequestDto) {
@@ -44,8 +46,13 @@ public class APIDeviceReturnController {
         return returnLogService.saveReturnLog(dto);
     }
 
-    @GetMapping(value = "device/log/find/id/{id}")
+    @GetMapping("device/log/find/id/{id}")
     public ReturnLogResponseDto test(@PathVariable Long id) {
         return returnLogService.findById(id);
+    }
+
+    @GetMapping("return/time/valid")
+    public boolean isValidUseTime(@RequestParam Long millis, @RequestParam Long adminId) throws ParseException {
+        return ruleService.isValidUsingTime(millis, adminId);
     }
 }
