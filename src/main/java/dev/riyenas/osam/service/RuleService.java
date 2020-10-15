@@ -28,6 +28,9 @@ public class RuleService {
         Long returnTime = rule.getReturnTime().getTime() % DayToMillis;
         Long dispensingTime = rule.getDispensingTime().getTime() % DayToMillis;
 
+        log.info(now.toString());
+        log.info(nowTime + " : " + dispensingTime + " : " + returnTime);
+
         return (dispensingTime < nowTime) && (nowTime < returnTime) ? true : false;
     }
 
