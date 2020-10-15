@@ -2,19 +2,19 @@ package dev.riyenas.osam.web.dto.app;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Getter
-@NoArgsConstructor
-public class QRCodeRequestDto {
+@ToString
+public class SoldierSignUpResponseDto {
     private Long deviceId;
     private Long adminId;
-    private String TOTP;
+    private String seed;
 
     @Builder
-    public QRCodeRequestDto(Long deviceId, Long adminId, String TOTP) {
+    public SoldierSignUpResponseDto(Long deviceId, Long adminId, String seed) {
         this.deviceId = deviceId;
         this.adminId = adminId;
-        this.TOTP = TOTP;
+        this.seed = seed;
     }
 }
