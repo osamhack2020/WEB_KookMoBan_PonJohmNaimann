@@ -4,6 +4,7 @@ import dev.riyenas.osam.service.ReturnLogService;
 import dev.riyenas.osam.service.RuleService;
 import dev.riyenas.osam.service.SoldierService;
 import dev.riyenas.osam.web.dto.app.SoldierSignUpRequestDto;
+import dev.riyenas.osam.web.dto.app.SoldierSignUpResponseDto;
 import dev.riyenas.osam.web.dto.iot.DeviceReturnRequestDto;
 import dev.riyenas.osam.web.dto.returnLog.ReturnLogResponseDto;
 import dev.riyenas.osam.web.dto.soldier.SoldierDeviceResponseDto;
@@ -26,7 +27,7 @@ public class APIDeviceReturnController {
     private final RuleService ruleService;
 
     @PostMapping("create")
-    public String create(@RequestBody SoldierSignUpRequestDto soldierSignUpRequestDto) {
+    public SoldierSignUpResponseDto create(@RequestBody SoldierSignUpRequestDto soldierSignUpRequestDto) {
         return soldierService.createSoldier(soldierSignUpRequestDto);
     }
 

@@ -7,6 +7,7 @@ import dev.riyenas.osam.domain.device.DeviceRepository;
 import dev.riyenas.osam.domain.soldier.Soldier;
 import dev.riyenas.osam.domain.soldier.SoldierRepository;
 import dev.riyenas.osam.web.dto.app.SoldierSignUpRequestDto;
+import dev.riyenas.osam.web.dto.app.SoldierSignUpResponseDto;
 import dev.riyenas.osam.web.dto.soldier.SoldierDeviceResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -27,7 +28,7 @@ public class SoldierService {
     private final AdminRepository adminRepository;
 
     @Transactional
-    public String createSoldier(SoldierSignUpRequestDto info) {
+    public SoldierSignUpResponseDto createSoldier(SoldierSignUpRequestDto info) {
 
         Admin admin = adminRepository.findBySignUpCode(info.getSignUpCode()).orElseThrow(() ->
                 new IllegalArgumentException("정확한 회원가입 코드가 아닙니다.")
@@ -44,7 +45,11 @@ public class SoldierService {
 
         soldierRepository.save(soldier);
 
-        return device.getUuid();
+        return SoldierSignUpResponseDto.builder()
+                .deviceId(device.getId())
+                .adminId(admin.getId())
+                .seed(device.getUuid())
+                .build();
     }
 
     @Transactional(readOnly = true)
