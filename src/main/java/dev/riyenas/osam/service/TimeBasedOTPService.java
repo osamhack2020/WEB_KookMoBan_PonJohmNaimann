@@ -75,6 +75,8 @@ public class TimeBasedOTPService {
                 new IllegalArgumentException("모바일 기기를 조회 할수 없습니다.")
         );
 
+        Long adminId = device.getSoldier().getAdmin().getId();
+
         Calendar time = Calendar.getInstance();
 
         String steps = TimeBasedOTP.calcSteps(time.getTimeInMillis() / 1000, 0L, 10L);
@@ -82,6 +84,7 @@ public class TimeBasedOTPService {
 
         QRCodeRequestDto dto = QRCodeRequestDto.builder()
                 .deviceId(deviceId)
+                .adminId(adminId)
                 .TOTP(totp)
                 .build();
 

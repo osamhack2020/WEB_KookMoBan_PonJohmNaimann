@@ -8,11 +8,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class QRCodeRequestDto {
     private Long deviceId;
+    private Long adminId;
     private String TOTP;
 
     @Builder
-    public QRCodeRequestDto(Long deviceId, String TOTP) {
+    public QRCodeRequestDto(Long deviceId, Long adminId, String TOTP) {
         this.deviceId = deviceId;
+        this.adminId = adminId;
         this.TOTP = TOTP;
     }
 }
