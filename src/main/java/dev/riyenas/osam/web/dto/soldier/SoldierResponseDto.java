@@ -25,7 +25,6 @@ public class SoldierResponseDto {
         this.id = entity.getId();
         this.serviceNumber = entity.getServiceNumber();
         this.name = entity.getName();
-        this.rank = entity.getRank();
         this.unit = entity.getUnit();
         this.devices = entity.getDevices().stream()
                 .map(DeviceResponseDto::new)

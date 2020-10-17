@@ -24,7 +24,6 @@ public class SoldierDeviceResponseDto {
         this.soldierId = soldier.getId();
         this.serviceNumber = soldier.getServiceNumber();
         this.name = soldier.getName();
-        this.rank = soldier.getRank();
         this.unit = soldier.getUnit();
         this.deviceId = device.getId();
         this.serialNumber = device.getSerialNumber();
