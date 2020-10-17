@@ -30,5 +30,14 @@ public class SoldierRepositoryImpl extends QuerydslRepositorySupport implements 
                 .fetch();
     }
 
+    @Override
+    public List<Soldier> findByAdminSignUpCode(String signUpCode) {
+        final QSoldier soldier = QSoldier.soldier;
+
+        return from(soldier)
+                .where(soldier.admin.signUpCode.eq(signUpCode))
+                .fetch();
+    }
+
 
 }

@@ -42,6 +42,11 @@ public class APIDeviceReturnController {
         return soldierService.findByAdminServiceNumber(adminServiceNumber);
     }
 
+    @GetMapping("find/admin/signUpCode/{signUpCode}")
+    public List<SoldierDeviceResponseDto> findBySignUpCode(@PathVariable String signUpCode) {
+        return soldierService.findBySignUpCode(signUpCode);
+    }
+
     @PostMapping(value = "device/log/create", produces = MediaType.IMAGE_JPEG_VALUE)
     public @ResponseBody byte[] returnLogCreate(@RequestBody DeviceReturnRequestDto dto) throws ParseException {
         return returnLogService.saveReturnLog(dto);
