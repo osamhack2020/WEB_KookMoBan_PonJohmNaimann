@@ -65,6 +65,18 @@ public class SoldierService {
     }
 
     @Transactional(readOnly = true)
+    public List<SoldierDeviceResponseDto> findBySignUpCode(String signUpCode) {
+        List<SoldierDeviceResponseDto> dtos = new ArrayList<>();
+        List<Soldier> soldiers = Optional.ofNullable(soldierRepository.findByAdminSignUpCode(signUpCode))
+                .filter(list -> !list.isEmpty())
+                .orElseThrow(() ->
+                        new IllegalArgumentException("해당 관리자의 회원가입 코드를 찾을수 없습니다.")
+                );
+
+        return getSoldierDeviceResponseDtos(soldiers, dtos);
+    }
+
+    @Transactional(readOnly = true)
     public List<SoldierDeviceResponseDto> findAll() {
         List<SoldierDeviceResponseDto> dtos = new ArrayList<>();
         List<Soldier> soldiers = Optional.ofNullable(soldierRepository.findAll())
