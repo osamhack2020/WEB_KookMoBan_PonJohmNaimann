@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 public class SoldierSignUpRequestDto {
     private String name;
     private String serviceNumber;
-    private String rank;
-    private String unit;
     private String serialNumber;
     private String type;
     private String manufacturer;
@@ -20,12 +18,10 @@ public class SoldierSignUpRequestDto {
     private String signUpCode;
 
     @Builder
-    public SoldierSignUpRequestDto(String name, String serviceNumber, String rank, String unit, String serialNumber,
-                                   String type, String manufacturer, String phoneNumber, String signUpCode) {
+    public SoldierSignUpRequestDto(String name, String serviceNumber, String serialNumber, String type,
+                                   String manufacturer, String phoneNumber, String signUpCode) {
         this.name = name;
         this.serviceNumber = serviceNumber;
-        this.rank = rank;
-        this.unit = unit;
         this.serialNumber = serialNumber;
         this.type = type;
         this.manufacturer = manufacturer;
@@ -36,8 +32,6 @@ public class SoldierSignUpRequestDto {
     public Soldier toSoldierEntity() {
         return Soldier.builder()
                 .name(this.name)
-                .unit(this.unit)
-                .rank(this.rank)
                 .serviceNumber(this.serviceNumber)
                 .build();
     }

@@ -23,6 +23,7 @@ public class Admin {
     private String name;
     private String password;
     private String signUpCode;
+    private String unit;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "admin", orphanRemoval = true)
     private final List<Soldier> soldiers = new ArrayList<>();
@@ -31,11 +32,13 @@ public class Admin {
     private Rule rule;
 
     @Builder
-    public Admin(Long id, String serviceNumber, String password, String signUpCode, String name) {
+    public Admin(Long id, String serviceNumber, String name, String password, String signUpCode, String unit, Rule rule) {
         this.id = id;
         this.serviceNumber = serviceNumber;
+        this.name = name;
         this.password = password;
         this.signUpCode = signUpCode;
-        this.name = name;
+        this.unit = unit;
+        this.rule = rule;
     }
 }

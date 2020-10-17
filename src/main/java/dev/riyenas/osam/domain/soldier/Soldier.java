@@ -20,7 +20,6 @@ public class Soldier {
     private Long id;
     private String serviceNumber;
     private String name;
-    private String rank;
     private String unit;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "soldier", orphanRemoval = true)
@@ -31,17 +30,20 @@ public class Soldier {
     private Admin admin;
 
     @Builder
-    public Soldier(Long id, String name, String rank, String unit, String serviceNumber) {
+    public Soldier(Long id, String name, String unit, String serviceNumber) {
         this.id = id;
         this.serviceNumber = serviceNumber;
         this.name = name;
-        this.rank = rank;
         this.unit = unit;
     }
 
     public void addDevice(Device device) {
         devices.add(device);
         device.setSoldier(this);
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
     public void setAdmin(Admin admin) {
