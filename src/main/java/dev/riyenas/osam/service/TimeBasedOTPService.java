@@ -33,7 +33,7 @@ public class TimeBasedOTPService {
 
         String steps = TimeBasedOTP.calcSteps(time.getTimeInMillis() / 1000, 0L, 10L);
 
-        return TimeBasedOTP.generateTOTP(seed, steps, "8", CryptoType.HmacSHA512.toString());
+        return TimeBasedOTP.generateTOTP(seed, steps, "8", CryptoType.HmacSHA512);
     }
 
     public String generateByCurrentTime(Long deviceId) {
@@ -46,14 +46,14 @@ public class TimeBasedOTPService {
 
         String steps = TimeBasedOTP.calcSteps(time.getTimeInMillis() / 1000, 0L, 10L);
 
-        return TimeBasedOTP.generateTOTP(device.getUuid(), steps, "8", CryptoType.HmacSHA512.toString());
+        return TimeBasedOTP.generateTOTP(device.getUuid(), steps, "8", CryptoType.HmacSHA512);
     }
 
     public String generateBySeedAndTimeInMills(String seed, Long timeInMillis) {
 
         String steps = TimeBasedOTP.calcSteps(timeInMillis / 1000, 0L, 10L);
 
-        return TimeBasedOTP.generateTOTP(seed, steps, "8", CryptoType.HmacSHA512.toString());
+        return TimeBasedOTP.generateTOTP(seed, steps, "8", CryptoType.HmacSHA512);
     }
 
     public Boolean isValidTimeBasedOtp(TOTPValidRequestDto dto) {
@@ -63,7 +63,7 @@ public class TimeBasedOTPService {
         );
 
         String steps = TimeBasedOTP.calcSteps(dto.getTimeInMillis() / 1000, 0L, 10L);
-        String resultTOTP = TimeBasedOTP.generateTOTP(device.getUuid(), steps, "8", CryptoType.HmacSHA512.toString());
+        String resultTOTP = TimeBasedOTP.generateTOTP(device.getUuid(), steps, "8", CryptoType.HmacSHA512);
 
         String expectedTOTP = dto.getExpectedTOTP();
 
@@ -80,7 +80,7 @@ public class TimeBasedOTPService {
         Calendar time = Calendar.getInstance();
 
         String steps = TimeBasedOTP.calcSteps(time.getTimeInMillis() / 1000, 0L, 10L);
-        String totp = TimeBasedOTP.generateTOTP(device.getUuid(), steps, "8", CryptoType.HmacSHA512.toString());
+        String totp = TimeBasedOTP.generateTOTP(device.getUuid(), steps, "8", CryptoType.HmacSHA512);
 
         QRCodeRequestDto dto = QRCodeRequestDto.builder()
                 .deviceId(deviceId)
