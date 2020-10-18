@@ -16,7 +16,6 @@ public class SoldierResponseDto {
     private Long id;
     private String serviceNumber;
     private String name;
-    private String rank;
     private String unit;
     private AdminResponseDto admin;
     private List<DeviceResponseDto> devices;
@@ -25,7 +24,7 @@ public class SoldierResponseDto {
         this.id = entity.getId();
         this.serviceNumber = entity.getServiceNumber();
         this.name = entity.getName();
-        this.unit = entity.getUnit();
+        this.unit = entity.getAdmin().getUnit();
         this.devices = entity.getDevices().stream()
                 .map(DeviceResponseDto::new)
                 .collect(Collectors.toList());

@@ -1,7 +1,6 @@
 package dev.riyenas.osam.error;
 
 import dev.riyenas.osam.error.exception.ErrorCode;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.validation.BindingResult;
