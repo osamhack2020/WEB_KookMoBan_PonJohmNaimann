@@ -45,7 +45,6 @@ public class SoldierTest {
     public void soldierCreate() {
         Soldier soldier = Soldier.builder()
                 .serviceNumber("19-123456")
-                .unit("국직")
                 .name("홍길동")
                 .build();
 
@@ -61,6 +60,7 @@ public class SoldierTest {
                 .serviceNumber("19-123456")
                 .password("123456")
                 .signUpCode("8888888")
+                .unit("국직")
                 .build();
 
         soldier.addDevice(device);
@@ -78,7 +78,6 @@ public class SoldierTest {
     public void deleteOrphanRemovalTest() {
         Soldier soldier = Soldier.builder()
                 .serviceNumber("19-123456")
-                .unit("국직")
                 .name("홍길동")
                 .build();
 

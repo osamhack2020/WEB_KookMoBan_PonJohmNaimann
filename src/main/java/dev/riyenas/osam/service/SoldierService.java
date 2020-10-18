@@ -42,7 +42,6 @@ public class SoldierService {
 
         soldier.addDevice(device);
         soldier.setAdmin(admin);
-        soldier.setUnit(admin.getUnit());
 
         soldierRepository.save(soldier);
 

@@ -1,7 +1,6 @@
 package dev.riyenas.osam.error;
 
 import dev.riyenas.osam.error.exception.ErrorCode;
-import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
