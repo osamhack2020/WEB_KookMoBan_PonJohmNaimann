@@ -44,10 +44,10 @@ public class TimeBasedOTPTest {
         Long testTime = 100L;
 
         String stepsA = TimeBasedOTP.calcSteps(testTime, T0, X);
-        String timeBasedOTPA = TimeBasedOTP.generateTOTP(seed, stepsA, "8", CryptoType.HmacSHA512.toString());
+        String timeBasedOTPA = TimeBasedOTP.generateTOTP(seed, stepsA, "8", CryptoType.HmacSHA512);
 
         String stepsB = TimeBasedOTP.calcSteps(testTime + 9, T0, X);
-        String timeBasedOTPB = TimeBasedOTP.generateTOTP(seed, stepsB, "8", CryptoType.HmacSHA512.toString());
+        String timeBasedOTPB = TimeBasedOTP.generateTOTP(seed, stepsB, "8", CryptoType.HmacSHA512);
 
         Assertions.assertEquals(timeBasedOTPA, timeBasedOTPB);
     }
@@ -58,7 +58,7 @@ public class TimeBasedOTPTest {
         Long timeInMillis = 1602338274597L; //Sat Oct 10 2020 22:57:54
 
         String steps = TimeBasedOTP.calcSteps(timeInMillis / 1000, 0L, 10L);
-        String timeBasedOTP = TimeBasedOTP.generateTOTP(seed, steps, "8", CryptoType.HmacSHA512.toString());
+        String timeBasedOTP = TimeBasedOTP.generateTOTP(seed, steps, "8", CryptoType.HmacSHA512);
 
         TOTPValidRequestDto dto = TOTPValidRequestDto.builder()
                 .deviceId(1L)

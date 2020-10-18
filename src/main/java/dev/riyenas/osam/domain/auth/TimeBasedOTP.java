@@ -50,18 +50,18 @@ public class TimeBasedOTP {
     }
 
     public static String generateTOTP(String key, String time, String returnDigits) {
-        return generateTOTP(key, time, returnDigits, CryptoType.HmacSHA1.toString());
+        return generateTOTP(key, time, returnDigits, CryptoType.HmacSHA1);
     }
 
     public static String generateTOTP256(String key, String time, String returnDigits) {
-        return generateTOTP(key, time, returnDigits, CryptoType.HmacSHA256.toString());
+        return generateTOTP(key, time, returnDigits, CryptoType.HmacSHA256);
     }
 
     public static String generateTOTP512(String key, String time, String returnDigits) {
-        return generateTOTP(key, time, returnDigits, CryptoType.HmacSHA512.toString());
+        return generateTOTP(key, time, returnDigits, CryptoType.HmacSHA512);
     }
 
-    public static String generateTOTP(String key, String time, String returnDigits, String crypto) {
+    public static String generateTOTP(String key, String time, String returnDigits, CryptoType type) {
         int codeDigits = Integer.decode(returnDigits).intValue();
         String result = null;
         byte[] hash;
@@ -73,7 +73,7 @@ public class TimeBasedOTP {
         byte[] msg = hexStrToBytes(time);
         byte[] k = hexStrToBytes(key);
 
-        hash = hmac_sha1(crypto, k, msg);
+        hash = hmac_sha1(type.toString(), k, msg);
 
         int offset = hash[hash.length - 1] & 0xf;
 
