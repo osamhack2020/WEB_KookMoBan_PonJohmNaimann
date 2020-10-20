@@ -10,28 +10,21 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static dev.riyenas.osam.service.ReturnLogService.isDeviceUsingTime;
+
 @Service
 @RequiredArgsConstructor
 @Log4j2
 public class RuleService {
     private final RuleRepository ruleRepository;
-    private final static Long DayToMillis = 86400000L;
 
     public boolean isValidUsingTime(Long millisTime, Long adminId) throws ParseException {
-        Date now = millisToDate(millisTime);
 
         Rule rule = ruleRepository.findByAdminId(adminId).orElseThrow(() ->
                 new IllegalArgumentException("관리자를 조회 할수 없습니다.")
         );
 
-        Long nowTime = now.getTime() % DayToMillis;
-        Long returnTime = rule.getReturnTime().getTime() % DayToMillis;
-        Long dispensingTime = rule.getDispensingTime().getTime() % DayToMillis;
-
-        log.info(now.toString());
-        log.info(nowTime + " : " + dispensingTime + " : " + returnTime);
-
-        return (dispensingTime < nowTime) && (nowTime < returnTime) ? true : false;
+        return isDeviceUsingTime(millisTime, rule);
     }
 
     public static Date millisToDate(Long returnTime) throws ParseException {

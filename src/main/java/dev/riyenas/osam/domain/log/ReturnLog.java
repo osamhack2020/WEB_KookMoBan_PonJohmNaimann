@@ -26,6 +26,9 @@ public class ReturnLog {
     @Lob
     private String photo;
 
+    @Enumerated(EnumType.STRING)
+    private ReturnState state;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "device_id")
     private Device device;
@@ -41,5 +44,17 @@ public class ReturnLog {
 
     public void setDevice(Device device) {
         this.device = device;
+    }
+
+    public void stateDelay() {
+        this.state = ReturnState.TIME_DELAY;
+    }
+
+    public void stateWeightFault() {
+        this.state = ReturnState.WEIGHT_FAULT;
+    }
+
+    public void statePass() {
+        this.state = ReturnState.PASS;
     }
 }
