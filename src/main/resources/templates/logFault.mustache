@@ -1,0 +1,121 @@
+<!--
+=========================================================
+* Argon Dashboard - v1.2.0
+=========================================================
+* Product Page: https://www.creative-tim.com/product/argon-dashboard
+
+* Copyright  Creative Tim (http://www.creative-tim.com)
+* Coded by www.creative-tim.com
+
+=========================================================
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+
+<!DOCTYPE html>
+<html>
+
+{{>layout/header}}
+
+<body>
+<!-- Sidenav -->
+{{>layout/sidebar}}
+
+<!-- Main content -->
+<div class="main-content" id="panel">
+
+    <!-- Topnav -->
+    {{>layout/navbar}}
+
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <h6 class="h2 text-white d-inline-block mb-0">반납 현황</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header border-0">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h3 class="mb-0">
+                                    비정상 반납 기록
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table align-items-center">
+                            <thead class="thead-light">
+                            <tr>
+                                <th style='text-align:center'>#</th>
+                                <th style='text-align:center'>이름(군번)</th>
+                                <th style='text-align:center'>제조사</th>
+                                <th style='text-align:center'>시리얼넘버</th>
+                                <th style='text-align:center'>종류</th>
+                                <th style='text-align:center'>무게</th>
+                                <th style='text-align:center'>반납시간</th>
+                                <th style='text-align:center'>상태</th>
+
+                            </tr>
+                            </thead>
+
+                            <tbody id="log_list">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        {{>layout/footer}}
+    </div>
+</div>
+
+<!-- Argon Scripts -->
+<!-- Core -->
+{{>layout/plugins}}
+</body>
+</html>
+
+<script language="JavaScript">
+    $(document).ready(function () {
+        getLogData()
+
+        function getLogData(){
+            $.ajax({
+                url: '/api/log/find/return/fault',
+                type: "GET",
+                data: JSON,
+                success:function(data){
+                    var str = "";
+                    $(data).each(
+                            function () {
+                                str += "<tr class='log_id'" + " data-no='" + this.id + "'>"
+                                        + "<td style='text-align:center'>" + this.id + "</td>"
+                                        + "<td style='text-align:center'>" + this.name + "(" + this.serviceNumber + ")" + "</td>"
+                                        + "<td style='text-align:center'>" + this.manufacturer + "</td>"
+                                        + "<td style='text-align:center'>" + this.serialNumber + "</td>"
+                                        + "<td style='text-align:center'>" + this.type + "</td>"
+                                        + "<td style='text-align:center'>" + this.weight + "g" + "</td>"
+                                        + "<td style='text-align:center'>" + this.returnTime + "</td>"
+                                        + "<td style='text-align:center'>" + this.state + "</td>"
+                                        + "</tr>";
+                            });
+                    $("#log_list").html(str);
+                },
+            });
+        }
+    });
+</script>
