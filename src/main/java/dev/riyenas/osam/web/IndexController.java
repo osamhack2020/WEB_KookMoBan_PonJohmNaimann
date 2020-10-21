@@ -10,4 +10,14 @@ public class IndexController {
     public String index() {
         return "index";
     }
+
+    @GetMapping("/log/fault")
+    public String logFault() {
+        return "logFault";
+    }
+
+    @GetMapping("/log/all")
+    public String logPass() {
+        return "logAll";
+    }
 }
