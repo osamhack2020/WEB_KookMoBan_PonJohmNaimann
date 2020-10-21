@@ -31,6 +31,6 @@ public class RuleService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         Date timeInDate = new Date(returnTime);
         String timeInFormat = sdf.format(timeInDate);
-        return new SimpleDateFormat("yyyy-mm-dd HH:mm:ss").parse(timeInFormat);
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(timeInFormat);
     }
 }

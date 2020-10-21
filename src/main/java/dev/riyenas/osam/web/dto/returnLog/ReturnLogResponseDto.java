@@ -1,5 +1,6 @@
 package dev.riyenas.osam.web.dto.returnLog;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.riyenas.osam.domain.device.Device;
 import dev.riyenas.osam.domain.log.ReturnLog;
@@ -15,7 +16,6 @@ public class ReturnLogResponseDto {
     private Long id;
     private String serviceNumber;
     private String name;
-    private Date returnTime;
     private Double weight;
     private String state;
     private String serialNumber;
@@ -25,6 +25,9 @@ public class ReturnLogResponseDto {
 
     @JsonIgnore
     private String photo;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+    private Date returnTime;
 
     public ReturnLogResponseDto(ReturnLog returnLog) {
         Soldier soldier = returnLog.getDevice().getSoldier();
