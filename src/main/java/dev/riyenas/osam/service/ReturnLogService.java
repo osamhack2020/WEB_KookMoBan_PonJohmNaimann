@@ -6,6 +6,7 @@ import dev.riyenas.osam.domain.log.ReturnLog;
 import dev.riyenas.osam.domain.log.ReturnLogRepository;
 import dev.riyenas.osam.domain.rule.Rule;
 import dev.riyenas.osam.web.dto.iot.DeviceReturnRequestDto;
+import dev.riyenas.osam.web.dto.returnLog.ReturnLogDetailResponseDto;
 import dev.riyenas.osam.web.dto.returnLog.ReturnLogResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -67,12 +68,12 @@ public class ReturnLogService {
         return (dispensingTime < soldierReturnTime) && (soldierReturnTime < returnTime);
     }
 
-    public ReturnLogResponseDto findById(Long id) {
+    public ReturnLogDetailResponseDto findById(Long id) {
         ReturnLog returnLog = returnLogRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("반납 기록을 조회 할수 없습니다.")
         );
 
-        return new ReturnLogResponseDto(returnLog);
+        return new ReturnLogDetailResponseDto(returnLog);
     }
 
     @Transactional(readOnly = true)

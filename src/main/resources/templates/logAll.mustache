@@ -65,7 +65,7 @@
                                 <th style='text-align:center'>무게</th>
                                 <th style='text-align:center'>반납시간</th>
                                 <th style='text-align:center'>상태</th>
-
+                                <th style='text-align:center'>더보기</th>
                             </tr>
                             </thead>
 
@@ -73,6 +73,80 @@
 
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">반납 기록 정보</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="col-form-label"><b>이름</b></label>
+                                            <input type="text" class="form-control" id="modal-name" value="" disabled>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="col-form-label"><b>군번</b></label>
+                                            <input type="text" class="form-control" id="modal-serviceNumber" value="" disabled>
+                                        </div>
+                                    </div>
+
+                                    <hr>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="col-form-label"><b>제조사</b></label>
+                                            <input type="text" class="form-control" id="modal-manufacturer" value="" disabled>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="col-form-label"><b>종류</b></label>
+                                            <input type="text" class="form-control" id="modal-type" value="" disabled>
+                                        </div>
+                                    </div>
+
+                                    <label class="col-form-label"><b>S/N</b></label>
+                                    <input type="text" class="form-control" id="modal-serialNumber" value="" disabled>
+
+                                    <hr>
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label class="col-form-label"><b>반납 시간</b></label>
+                                            <input type="text" class="form-control" id="modal-returnTime" value="" disabled>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-form-label"><b>기기 무게</b></label>
+                                            <input type="text" class="form-control" id="modal-weight" value="" disabled>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="col-form-label"><b>반납 상태</b></label>
+                                            <input type="text" class="form-control" id="modal-state" value="" disabled>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-xl-6">
+                                <form>
+                                    <label class="col-form-label"><b>기기 사진</b></label>
+                                    <img id="modal-photo" src="" style="height: auto">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -93,6 +167,12 @@
     $(document).ready(function () {
         getLogData()
 
+        $("#log_list").on("click", ".log_id #log_detail_btn", function () {
+            const tr = $(this).parent().parent();
+            const log_id = tr.attr("data-id")
+            getLogDetail(log_id)
+        });
+
         function getLogData(){
             $.ajax({
                 url: '/api/log/find/all',
@@ -101,19 +181,42 @@
                 success:function(data){
                     var str = "";
                     $(data).each(
-                            function () {
-                                str += "<tr class='log_id'" + " data-no='" + this.id + "'>"
-                                        + "<td style='text-align:center'>" + this.id + "</td>"
-                                        + "<td style='text-align:center'>" + this.name + "(" + this.serviceNumber + ")" + "</td>"
-                                        + "<td style='text-align:center'>" + this.manufacturer + "</td>"
-                                        + "<td style='text-align:center'>" + this.serialNumber + "</td>"
-                                        + "<td style='text-align:center'>" + this.type + "</td>"
-                                        + "<td style='text-align:center'>" + this.weight + "g" + "</td>"
-                                        + "<td style='text-align:center'>" + this.returnTime + "</td>"
-                                        + "<td style='text-align:center'>" + this.state + "</td>"
-                                        + "</tr>";
-                            });
+                        function () {
+                            str += "<tr class='log_id'" + " data-id='" + this.id + "'>"
+                                    + "<td style='text-align:center'>" + this.id + "</td>"
+                                    + "<td style='text-align:center'>" + this.name + "(" + this.serviceNumber + ")" + "</td>"
+                                    + "<td style='text-align:center'>" + this.manufacturer + "</td>"
+                                    + "<td style='text-align:center'>" + this.serialNumber + "</td>"
+                                    + "<td style='text-align:center'>" + this.type + "</td>"
+                                    + "<td style='text-align:center'>" + this.weight + "g" + "</td>"
+                                    + "<td style='text-align:center'>" + this.returnTime + "</td>"
+                                    + "<td style='text-align:center'>" + this.state + "</td>"
+                                    + "<td style='text-align:center'>"
+                                    + "<button id='log_detail_btn' type='button' class='btn btn-sm btn-block btn-primary' data-toggle='modal' data-target='#modal'>"
+                                    + '<i class="glyphicon glyphicon-repeat">더보기</i></button></td>'
+                                    + "</tr>";
+                        });
                     $("#log_list").html(str);
+                },
+            });
+        }
+
+        function getLogDetail(id) {
+            $.ajax({
+                url: '/api/log/find/' + id,
+                type: "GET",
+                data: JSON,
+                success:function(data){
+                    $("#modal-id").attr("src", data.id);
+                    $("#modal-name").attr("value", data.name);
+                    $("#modal-serviceNumber").attr("value", data.serviceNumber);
+                    $("#modal-manufacturer").attr("value", data.manufacturer);
+                    $("#modal-serialNumber").attr("value", data.serialNumber);
+                    $("#modal-type").attr("value", data.type);
+                    $("#modal-weight").attr("value", data.weight);
+                    $("#modal-returnTime").attr("value", data.returnTime);
+                    $("#modal-state").attr("value", data.state);
+                    $("#modal-photo").attr("src", data.photo);
                 },
             });
         }

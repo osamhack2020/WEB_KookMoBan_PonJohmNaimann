@@ -2,6 +2,7 @@ package dev.riyenas.osam.web;
 
 import dev.riyenas.osam.service.ReturnLogService;
 import dev.riyenas.osam.web.dto.iot.DeviceReturnRequestDto;
+import dev.riyenas.osam.web.dto.returnLog.ReturnLogDetailResponseDto;
 import dev.riyenas.osam.web.dto.returnLog.ReturnLogResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -25,7 +26,7 @@ public class APIReturnLogController {
     }
 
     @GetMapping("find/{id}")
-    public ReturnLogResponseDto findByLogId(@PathVariable Long id) {
+    public ReturnLogDetailResponseDto findByLogId(@PathVariable Long id) {
         return returnLogService.findById(id);
     }
 

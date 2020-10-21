@@ -12,7 +12,7 @@ import java.util.Date;
 
 @Getter
 @ToString
-public class ReturnLogResponseDto {
+public class ReturnLogDetailResponseDto {
     private Long id;
     private String serviceNumber;
     private String name;
@@ -22,11 +22,12 @@ public class ReturnLogResponseDto {
     private String type;
     private String manufacturer;
     private String phoneNumber;
+    private String photo;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private Date returnTime;
 
-    public ReturnLogResponseDto(ReturnLog returnLog) {
+    public ReturnLogDetailResponseDto(ReturnLog returnLog) {
         Soldier soldier = returnLog.getDevice().getSoldier();
         Device device = returnLog.getDevice();
 
@@ -34,6 +35,7 @@ public class ReturnLogResponseDto {
         this.name = soldier.getName();
         this.id = returnLog.getId();
         this.returnTime = returnLog.getReturnTime();
+        this.photo = returnLog.getPhoto();
         this.weight = returnLog.getWeight();
         this.state = returnLog.getState().toString();
         this.serialNumber = device.getSerialNumber();
