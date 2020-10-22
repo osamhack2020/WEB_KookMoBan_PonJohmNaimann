@@ -1,0 +1,116 @@
+<!--
+=========================================================
+* Argon Dashboard - v1.2.0
+=========================================================
+* Product Page: https://www.creative-tim.com/product/argon-dashboard
+
+* Copyright  Creative Tim (http://www.creative-tim.com)
+* Coded by www.creative-tim.com
+
+=========================================================
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+
+<!DOCTYPE html>
+<html>
+
+{{>layout/header}}
+
+<body>
+<!-- Sidenav -->
+{{>layout/sidebar}}
+
+<!-- Main content -->
+<div class="main-content" id="panel">
+
+    <!-- Topnav -->
+    {{>layout/navbar}}
+
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-lg-6 col-7">
+                        <h6 class="h2 text-white d-inline-block mb-0">관리자 현황</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page content -->
+    <div class="container-fluid mt--6">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header border-0">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h3 class="mb-0">
+                                    회원가입 코드/ 기기 사용시간 관리
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table align-items-center">
+                            <thead class="thead-light">
+                            <tr>
+                                <th style='text-align:center'>#</th>
+                                <th style='text-align:center'>이름</th>
+                                <th style='text-align:center'>소속</th>
+                                <th style='text-align:center'>불출 시간</th>
+                                <th style='text-align:center'>반납 시간</th>
+                                <th style='text-align:center'>회원가입 코드</th>
+                            </tr>
+                            </thead>
+
+                            <tbody id="admin_list">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        {{>layout/footer}}
+    </div>
+</div>
+
+<!-- Argon Scripts -->
+<!-- Core -->
+{{>layout/plugins}}
+</body>
+</html>
+
+<script language="JavaScript">
+    $(document).ready(function () {
+        getAdminData()
+
+        function getAdminData(){
+            $.ajax({
+                url: '/api/admin/find/all',
+                type: "GET",
+                data: JSON,
+                success:function(data){
+                    var str = "";
+                    $(data).each(
+                            function () {
+                                str += "<tr class='log_id'" + " data-id='" + this.id + "'>"
+                                        + "<td style='text-align:center'>" + this.id + "</td>"
+                                        + "<td style='text-align:center'>" + this.name + "</td>"
+                                        + "<td style='text-align:center'>" + this.unit + "</td>"
+                                        + "<td style='text-align:center'>" + this.dispensingTime + "</td>"
+                                        + "<td style='text-align:center'>" + this.returnTime + "</td>"
+                                        + "<td style='text-align:center'><span class='h2 font-weight-bold name mb-0 text-blue'>" + this.signUpCode + "</span></td>"
+                                        + "</tr>";
+                            });
+                    $("#admin_list").html(str);
+                },
+            });
+        }
+    });
+</script>

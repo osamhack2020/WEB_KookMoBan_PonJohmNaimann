@@ -20,4 +20,9 @@ public class IndexController {
     public String logPass() {
         return "logAll";
     }
+
+    @GetMapping("/admin")
+    public String admin() {
+        return "admin";
+    }
 }
