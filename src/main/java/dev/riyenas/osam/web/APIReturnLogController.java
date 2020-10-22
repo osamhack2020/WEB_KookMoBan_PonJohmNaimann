@@ -40,6 +40,11 @@ public class APIReturnLogController {
         return returnLogService.findByDeviceId(deviceId);
     }
 
+    @GetMapping("find/device/{deviceId}/last")
+    public ReturnLogResponseDto findByDeviceIdOne(@PathVariable Long deviceId) {
+        return returnLogService.findByDeviceIdOne(deviceId);
+    }
+
     @GetMapping("find/return/fault")
     public List<ReturnLogResponseDto> findByReturnFault() {
         return returnLogService.findByReturnFault();
