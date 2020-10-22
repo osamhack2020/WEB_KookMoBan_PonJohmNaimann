@@ -78,28 +78,37 @@ public class ReturnLogService {
 
     @Transactional(readOnly = true)
     public List<ReturnLogResponseDto> findAll() {
-        return returnLogRepository.findAll().stream()
+        return returnLogRepository.findAllDesc().stream()
                 .map(ReturnLogResponseDto::new)
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     public List<ReturnLogResponseDto> findByDeviceId(Long deviceId) {
-        return returnLogRepository.findByDeviceId(deviceId).stream()
+        return returnLogRepository.findByDeviceIdDesc(deviceId).stream()
                 .map(ReturnLogResponseDto::new)
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
+    public ReturnLogResponseDto findByDeviceIdOne(Long deviceId) {
+        ReturnLog returnLog = returnLogRepository.findByDeviceIdOne(deviceId).orElseThrow(() ->
+                new IllegalArgumentException("기기를 찾을수 없습니다.")
+        );
+
+        return new ReturnLogResponseDto(returnLog);
+    }
+
+    @Transactional(readOnly = true)
     public List<ReturnLogResponseDto> findByReturnFault() {
-        return returnLogRepository.findByReturnFault().stream()
+        return returnLogRepository.findByReturnFaultDesc().stream()
                 .map(ReturnLogResponseDto::new)
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     public List<ReturnLogResponseDto> findByReturnPass() {
-        return returnLogRepository.findByReturnPass().stream()
+        return returnLogRepository.findByReturnPassDesc().stream()
                 .map(ReturnLogResponseDto::new)
                 .collect(Collectors.toList());
     }
