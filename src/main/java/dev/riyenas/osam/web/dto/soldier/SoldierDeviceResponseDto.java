@@ -11,7 +11,6 @@ public class SoldierDeviceResponseDto {
     private Long soldierId;
     private String serviceNumber;
     private String name;
-    private String rank;
     private String unit;
     private Long deviceId;
     private String serialNumber;
