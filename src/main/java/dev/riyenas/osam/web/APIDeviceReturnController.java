@@ -1,9 +1,11 @@
 package dev.riyenas.osam.web;
 
+import dev.riyenas.osam.service.DeviceService;
 import dev.riyenas.osam.service.RuleService;
 import dev.riyenas.osam.service.SoldierService;
 import dev.riyenas.osam.web.dto.app.SoldierSignUpRequestDto;
 import dev.riyenas.osam.web.dto.app.SoldierSignUpResponseDto;
+import dev.riyenas.osam.web.dto.device.DeviceLogResponseDto;
 import dev.riyenas.osam.web.dto.soldier.SoldierDeviceResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -20,6 +22,7 @@ public class APIDeviceReturnController {
 
     private final SoldierService soldierService;
     private final RuleService ruleService;
+    private final DeviceService deviceService;
 
     @PostMapping("create")
     public SoldierSignUpResponseDto create(@RequestBody SoldierSignUpRequestDto soldierSignUpRequestDto) {
@@ -45,5 +48,15 @@ public class APIDeviceReturnController {
     @GetMapping("return/time/valid")
     public boolean isValidUseTime(@RequestParam Long millis, @RequestParam Long adminId) throws ParseException {
         return ruleService.isValidUsingTime(millis, adminId);
+    }
+
+    @GetMapping("return/status/admin/{adminId}")
+    public List<DeviceLogResponseDto> statistic(@PathVariable Long adminId) {
+        return deviceService.returnStatus(adminId);
+    }
+
+    @GetMapping("return/status")
+    public List<DeviceLogResponseDto> statistic() {
+        return deviceService.returnStatusAll();
     }
 }
