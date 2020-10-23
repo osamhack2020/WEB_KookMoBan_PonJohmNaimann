@@ -20,6 +20,7 @@ public class DeviceLogResponseDto {
     private String manufacturer;
     private String state;
     private String icon;
+    private Long order;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", timezone = "Asia/Seoul")
     private Date returnTime;
@@ -36,5 +37,6 @@ public class DeviceLogResponseDto {
         this.state = returnLog.getState().toString();
         this.returnTime = returnLog.getReturnTime();
         this.icon = returnLog.getState().getIcon();
+        this.order = returnLog.getState().getOrder();
     }
 }

@@ -26,11 +26,6 @@ public class IndexController {
         return "admin";
     }
 
-    @GetMapping("/status")
-    public String status() {
-        return "status";
-    }
-
     @GetMapping("/soldier")
     public String soldier() {
         return "soldier";
