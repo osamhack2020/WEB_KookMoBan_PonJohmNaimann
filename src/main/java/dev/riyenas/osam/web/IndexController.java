@@ -25,4 +25,9 @@ public class IndexController {
     public String admin() {
         return "admin";
     }
+
+    @GetMapping("/soldier")
+    public String soldier() {
+        return"soldier";
+    }
 }

@@ -57,4 +57,8 @@ public class ReturnLog {
     public void statePass() {
         this.state = ReturnState.PASS;
     }
+
+    public void stateNonPass() {
+        this.state = ReturnState.NON_PASS;
+    }
 }
