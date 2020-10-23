@@ -2,6 +2,7 @@ package dev.riyenas.osam.web;
 
 import com.google.zxing.WriterException;
 import dev.riyenas.osam.service.TimeBasedOTPService;
+import dev.riyenas.osam.web.dto.app.TOTPQRCodeDto;
 import dev.riyenas.osam.web.dto.iot.TOTPValidRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -33,6 +34,10 @@ public class APITimeBasedOTPAuthController {
         return timeBasedOTPService.generateByCurrentTime(deviceId);
     }
 
+    @GetMapping("generate/device/{deviceId}/qrcode")
+    public TOTPQRCodeDto generateByDeviceIdQRCode(@PathVariable Long deviceId) throws IOException, WriterException {
+        return timeBasedOTPService.genrateQRCode(deviceId);
+    }
 
     @PostMapping("valid")
     public Boolean valid(@RequestBody TOTPValidRequestDto dto) {

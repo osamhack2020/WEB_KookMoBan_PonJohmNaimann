@@ -11,9 +11,11 @@ import dev.riyenas.osam.domain.auth.TimeBasedOTP;
 import dev.riyenas.osam.domain.device.Device;
 import dev.riyenas.osam.domain.device.DeviceRepository;
 import dev.riyenas.osam.web.dto.app.QRCodeRequestDto;
+import dev.riyenas.osam.web.dto.app.TOTPQRCodeDto;
 import dev.riyenas.osam.web.dto.iot.TOTPValidRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
@@ -68,6 +70,43 @@ public class TimeBasedOTPService {
         String expectedTOTP = dto.getExpectedTOTP();
 
         return resultTOTP.equals(expectedTOTP);
+    }
+
+    public TOTPQRCodeDto genrateQRCode(Long deviceId) throws IOException, WriterException {
+        Device device = deviceRepository.findById(deviceId).orElseThrow(() ->
+                new IllegalArgumentException("모바일 기기를 조회 할수 없습니다.")
+        );
+
+        Long adminId = device.getSoldier().getAdmin().getId();
+
+        Calendar time = Calendar.getInstance();
+
+        String steps = TimeBasedOTP.calcSteps(time.getTimeInMillis() / 1000, 0L, 10L);
+        String totp = TimeBasedOTP.generateTOTP(device.getUuid(), steps, "8", CryptoType.HmacSHA512);
+
+        QRCodeRequestDto dto = QRCodeRequestDto.builder()
+                .deviceId(deviceId)
+                .adminId(adminId)
+                .TOTP(totp)
+                .build();
+
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonStr = mapper.writeValueAsString(dto);
+
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        BitMatrix bitMatrix = qrCodeWriter.encode(jsonStr, BarcodeFormat.QR_CODE, 300, 300);
+
+        ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
+        MatrixToImageWriter.writeToStream(bitMatrix, "PNG", pngOutputStream);
+
+        String qrcodeString = "data:image/png;base64," + Base64.encodeBase64String(pngOutputStream.toByteArray());
+
+        return TOTPQRCodeDto.builder()
+                .adminId(adminId)
+                .deviceId(deviceId)
+                .qrcode(qrcodeString)
+                .totp(totp)
+                .build();
     }
 
     public byte[] transferQRCode(Long deviceId) throws IOException, WriterException {
