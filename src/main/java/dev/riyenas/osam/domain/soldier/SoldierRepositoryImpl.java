@@ -39,5 +39,12 @@ public class SoldierRepositoryImpl extends QuerydslRepositorySupport implements 
                 .fetch();
     }
 
+    @Override
+    public List<Soldier> findAllDesc() {
+        final QSoldier soldier = QSoldier.soldier;
 
+        return from(soldier)
+                .orderBy(soldier.id.desc())
+                .fetch();
+    }
 }

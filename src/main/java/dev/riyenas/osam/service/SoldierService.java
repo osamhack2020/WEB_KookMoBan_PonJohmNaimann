@@ -88,6 +88,18 @@ public class SoldierService {
         return getSoldierDeviceResponseDtos(soldiers, dtos);
     }
 
+    @Transactional(readOnly = true)
+    public List<SoldierDeviceResponseDto> findAllDesc() {
+        List<SoldierDeviceResponseDto> dtos = new ArrayList<>();
+        List<Soldier> soldiers = Optional.ofNullable(soldierRepository.findAllDesc())
+                .filter(list -> !list.isEmpty())
+                .orElseThrow(() ->
+                        new IllegalArgumentException("등록된 병사가 없습니다.")
+                );
+
+        return getSoldierDeviceResponseDtos(soldiers, dtos);
+    }
+
     private List<SoldierDeviceResponseDto> getSoldierDeviceResponseDtos(List<Soldier> soldiers, List<SoldierDeviceResponseDto> dtos) {
         for(Soldier soldier : soldiers) {
             List<Device> devices = soldier.getDevices();

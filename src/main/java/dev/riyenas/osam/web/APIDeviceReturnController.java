@@ -31,7 +31,7 @@ public class APIDeviceReturnController {
 
     @GetMapping("find/all")
     public List<SoldierDeviceResponseDto> findAll() {
-        return soldierService.findAll();
+        return soldierService.findAllDesc();
     }
 
     @GetMapping("find/admin/serviceNumber/{adminServiceNumber}")
