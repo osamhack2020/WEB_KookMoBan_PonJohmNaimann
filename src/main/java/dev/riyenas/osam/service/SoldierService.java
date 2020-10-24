@@ -37,7 +37,7 @@ public class SoldierService {
         Soldier soldier = soldierRepository.findByServiceNumber(info.getServiceNumber())
                 .orElse(info.toSoldierEntity());
 
-        Device device = deviceRepository.findBySerialNumber(info.getSerialNumber())
+        Device device = deviceRepository.findByGUID(info.getGuid())
                 .orElse(info.toDeviceEntity());
 
         soldier.addDevice(device);

@@ -11,21 +11,18 @@ import lombok.NoArgsConstructor;
 public class SoldierSignUpRequestDto {
     private String name;
     private String serviceNumber;
-    private String serialNumber;
     private String type;
     private String manufacturer;
-    private String phoneNumber;
+    private String guid;
     private String signUpCode;
 
     @Builder
-    public SoldierSignUpRequestDto(String name, String serviceNumber, String serialNumber, String type,
-                                   String manufacturer, String phoneNumber, String signUpCode) {
+    public SoldierSignUpRequestDto(String name, String serviceNumber, String type, String manufacturer, String guid, String signUpCode) {
         this.name = name;
         this.serviceNumber = serviceNumber;
-        this.serialNumber = serialNumber;
         this.type = type;
         this.manufacturer = manufacturer;
-        this.phoneNumber = phoneNumber;
+        this.guid = guid;
         this.signUpCode = signUpCode;
     }
 
@@ -39,8 +36,7 @@ public class SoldierSignUpRequestDto {
     public Device toDeviceEntity() {
         return Device.builder()
                 .manufacturer(this.manufacturer)
-                .phoneNumber(this.phoneNumber)
-                .serialNumber(this.serialNumber)
+                .guid(this.guid)
                 .type(this.type)
                 .build();
     }

@@ -16,7 +16,7 @@ public class DeviceLogResponseDto {
     private Long id;
     private String name;
     private String serviceNumber;
-    private String serialNumber;
+    private String guid;
     private String manufacturer;
     private String state;
     private String icon;
@@ -32,7 +32,7 @@ public class DeviceLogResponseDto {
         this.id = entity.getId();
         this.name = soldier.getName();
         this.serviceNumber = soldier.getServiceNumber();
-        this.serialNumber = entity.getSerialNumber();
+        this.guid = entity.getGuid();
         this.manufacturer = entity.getManufacturer();
         this.state = returnLog.getState().toString();
         this.returnTime = returnLog.getReturnTime();

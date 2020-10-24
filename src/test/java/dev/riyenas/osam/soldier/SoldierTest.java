@@ -50,9 +50,8 @@ public class SoldierTest {
 
         Device device = Device.builder()
                 .manufacturer("삼성")
-                .serialNumber("S/NABCDEFGHIJKLMN")
+                .guid("S/NABCDEFGHIJKLMN")
                 .type("phone")
-                .phoneNumber("010-1234-5678")
                 .build();
 
         Admin admin = Admin.builder()
@@ -83,16 +82,14 @@ public class SoldierTest {
 
         Device device1 = Device.builder()
                 .manufacturer("삼성")
-                .serialNumber("S/NABCDEFGHIJKLMN")
+                .guid("S/NABCDEFGHIJKLMN")
                 .type("phone")
-                .phoneNumber("010-1234-5678")
                 .build();
 
         Device device2 = Device.builder()
                 .manufacturer("삼성")
-                .serialNumber("S/NABCDEFGHIJKLMN")
+                .guid("S/NABCDEFGHIJKLMN")
                 .type("phone")
-                .phoneNumber("010-1234-5678")
                 .build();
 
         soldier.addDevice(device1);

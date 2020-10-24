@@ -13,10 +13,9 @@ public class SoldierDeviceResponseDto {
     private String name;
     private String unit;
     private Long deviceId;
-    private String serialNumber;
+    private String guid;
     private String type;
     private String manufacturer;
-    private String phoneNumber;
     private String uuid;
 
     public SoldierDeviceResponseDto(Soldier soldier, Device device) {
@@ -25,10 +24,9 @@ public class SoldierDeviceResponseDto {
         this.name = soldier.getName();
         this.unit = soldier.getAdmin().getUnit();
         this.deviceId = device.getId();
-        this.serialNumber = device.getSerialNumber();
+        this.guid = device.getGuid();
         this.type = device.getType();
         this.manufacturer = device.getManufacturer();
-        this.phoneNumber = device.getPhoneNumber();
         this.uuid = device.getUuid();
     }
 }

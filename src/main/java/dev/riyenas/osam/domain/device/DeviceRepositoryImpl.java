@@ -11,11 +11,11 @@ public class DeviceRepositoryImpl extends QuerydslRepositorySupport implements D
     }
 
     @Override
-    public Optional<Device> findBySerialNumber(String serialNumber) {
+    public Optional<Device> findByGUID(String guid) {
         final QDevice device = QDevice.device;
 
         return Optional.ofNullable(from(device)
-                .where(device.serialNumber.eq(serialNumber))
+                .where(device.guid.eq(guid))
                 .fetchOne());
     }
 

@@ -27,13 +27,12 @@ public class DeviceTest {
     public void deviceCreate() {
         Device device = Device.builder()
                 .manufacturer("삼성")
-                .serialNumber("S/NABCDEFGHIJKLMN")
+                .guid("S/NABCDEFGHIJKLMN")
                 .type("phone")
-                .phoneNumber("010-1234-5678")
                 .build();
 
         Device returnValue = deviceRepository.save(device);
 
-        Assertions.assertEquals(device.getSerialNumber(), returnValue.getSerialNumber());
+        Assertions.assertEquals(device.getGuid(), returnValue.getGuid());
     }
 }
