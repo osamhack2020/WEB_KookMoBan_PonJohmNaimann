@@ -39,7 +39,7 @@ public class AdminTest {
         SoldierSignUpRequestDto dto = SoldierSignUpRequestDto.builder()
                 .signUpCode("99999999")
                 .serviceNumber("19-123456")
-                .serialNumber("S/N123456")
+                .guid("S/N123456")
                 .build();
 
         Admin admin = Admin.builder()

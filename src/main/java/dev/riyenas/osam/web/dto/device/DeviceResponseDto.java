@@ -9,18 +9,16 @@ import lombok.ToString;
 public class DeviceResponseDto {
     private Long id;
 
-    private String serialNumber;
+    private String guid;
     private String type;
     private String manufacturer;
-    private String phoneNumber;
     private String uuid;
 
     public DeviceResponseDto(Device entity) {
         this.id = entity.getId();
-        this.serialNumber = entity.getSerialNumber();
+        this.guid = entity.getGuid();
         this.type = entity.getType();
         this.manufacturer = entity.getManufacturer();
-        this.phoneNumber = entity.getPhoneNumber();
         this.uuid = entity.getUuid();
     }
 }

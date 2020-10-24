@@ -18,10 +18,9 @@ public class ReturnLogResponseDto {
     private String name;
     private Double weight;
     private String state;
-    private String serialNumber;
+    private String guid;
     private String type;
     private String manufacturer;
-    private String phoneNumber;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private Date returnTime;
@@ -36,9 +35,8 @@ public class ReturnLogResponseDto {
         this.returnTime = returnLog.getReturnTime();
         this.weight = returnLog.getWeight();
         this.state = returnLog.getState().toString();
-        this.serialNumber = device.getSerialNumber();
+        this.guid = device.getGuid();
         this.type = device.getType();
         this.manufacturer = device.getManufacturer();
-        this.phoneNumber = device.getPhoneNumber();
     }
 }

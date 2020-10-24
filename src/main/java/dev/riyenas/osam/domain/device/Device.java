@@ -21,11 +21,9 @@ public class Device {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String serialNumber;
     private String type;
     private String manufacturer;
-    private String phoneNumber;
-
+    private String guid;
     private String uuid;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -36,12 +34,11 @@ public class Device {
     private final List<ReturnLog> returnLogs = new ArrayList<>();
 
     @Builder
-    public Device(Long id, String serialNumber, String type, String manufacturer, String phoneNumber) {
+    public Device(Long id, String guid, String type, String manufacturer) {
         this.id = id;
-        this.serialNumber = serialNumber;
         this.type = type;
         this.manufacturer = manufacturer;
-        this.phoneNumber = phoneNumber;
+        this.guid = guid;
         this.uuid = String.format("%040d",
                 new BigInteger(UUID.randomUUID().toString().replace("-", ""), 16)
         );

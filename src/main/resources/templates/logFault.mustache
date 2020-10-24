@@ -60,7 +60,7 @@
                                 <th style='text-align:center'>#</th>
                                 <th style='text-align:center'>이름(군번)</th>
                                 <th style='text-align:center'>제조사</th>
-                                <th style='text-align:center'>시리얼넘버</th>
+                                <th style='text-align:center'>기기 식별자</th>
                                 <th style='text-align:center'>종류</th>
                                 <th style='text-align:center'>무게</th>
                                 <th style='text-align:center'>반납시간</th>
@@ -116,8 +116,8 @@
                                         </div>
                                     </div>
 
-                                    <label class="col-form-label"><b>S/N</b></label>
-                                    <input type="text" class="form-control" id="modal-serialNumber" value="" disabled>
+                                    <label class="col-form-label"><b>기기 식별자</b></label>
+                                    <input type="text" class="form-control" id="modal-guid" value="" disabled>
 
                                     <hr>
 
@@ -186,7 +186,7 @@
                                         + "<td style='text-align:center'>" + this.id + "</td>"
                                         + "<td style='text-align:center'>" + this.name + "(" + this.serviceNumber + ")" + "</td>"
                                         + "<td style='text-align:center'>" + this.manufacturer + "</td>"
-                                        + "<td style='text-align:center'>" + this.serialNumber + "</td>"
+                                        + "<td style='text-align:center'>" + this.guid + "</td>"
                                         + "<td style='text-align:center'>" + this.type + "</td>"
                                         + "<td style='text-align:center'>" + this.weight + "g" + "</td>"
                                         + "<td style='text-align:center'>" + this.returnTime + "</td>"
@@ -211,7 +211,7 @@
                     $("#modal-name").attr("value", data.name);
                     $("#modal-serviceNumber").attr("value", data.serviceNumber);
                     $("#modal-manufacturer").attr("value", data.manufacturer);
-                    $("#modal-serialNumber").attr("value", data.serialNumber);
+                    $("#modal-guid").attr("value", data.guid);
                     $("#modal-type").attr("value", data.type);
                     $("#modal-weight").attr("value", data.weight);
                     $("#modal-returnTime").attr("value", data.returnTime);
