@@ -79,8 +79,16 @@
                                         + "<span class='text-nowrap mr-2'>" + this.manufacturer + " (" + this.guid + ")" + "</span></p>"
                                         + "<p class='col mb-0 text-right'>"
                                         + "<span class='badge badge-dot'>"
-                                        + "<span class='status mr-2'>" + this.returnTime + "</span>"
-                                        + "<i class='" + this.icon + "'></i></span></p></div></div></div></div>"
+
+                                var returnTime = this.returnTime
+
+                                if(typeof returnTime == "undefined" || returnTime == null || returnTime == ""){
+                                    str += "<span class='status mr-2'>미반납</span>"
+                                } else {
+                                    str += "<span class='status mr-2'>" + this.returnTime + "</span>"
+                                }
+
+                                str += "<i class='" + this.icon + "'></i></span></p></div></div></div></div>"
                             });
                     $("#device_list").html(str);
                 },
