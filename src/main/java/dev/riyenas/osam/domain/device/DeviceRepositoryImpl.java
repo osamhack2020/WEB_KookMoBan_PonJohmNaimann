@@ -2,6 +2,7 @@ package dev.riyenas.osam.domain.device;
 
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
+import java.util.List;
 import java.util.Optional;
 
 public class DeviceRepositoryImpl extends QuerydslRepositorySupport implements DeviceCustomRepository {
@@ -26,5 +27,14 @@ public class DeviceRepositoryImpl extends QuerydslRepositorySupport implements D
         return Optional.ofNullable(from(device)
                 .where(device.type.eq(type))
                 .fetchOne());
+    }
+
+    @Override
+    public List<Device> findAllDesc() {
+        final QDevice device = QDevice.device;
+
+        return from(device)
+                .orderBy(device.id.desc())
+                .fetch();
     }
 }

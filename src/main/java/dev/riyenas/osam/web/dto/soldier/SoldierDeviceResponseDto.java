@@ -29,4 +29,18 @@ public class SoldierDeviceResponseDto {
         this.manufacturer = device.getManufacturer();
         this.uuid = device.getUuid();
     }
+
+    public SoldierDeviceResponseDto(Device device) {
+        Soldier soldier = device.getSoldier();
+
+        this.soldierId = soldier.getId();
+        this.serviceNumber = soldier.getServiceNumber();
+        this.name = soldier.getName();
+        this.unit = soldier.getAdmin().getUnit();
+        this.deviceId = device.getId();
+        this.guid = device.getGuid();
+        this.type = device.getType();
+        this.manufacturer = device.getManufacturer();
+        this.uuid = device.getUuid();
+    }
 }

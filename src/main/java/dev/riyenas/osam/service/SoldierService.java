@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Log4j2
 @Service
@@ -90,14 +91,9 @@ public class SoldierService {
 
     @Transactional(readOnly = true)
     public List<SoldierDeviceResponseDto> findAllDesc() {
-        List<SoldierDeviceResponseDto> dtos = new ArrayList<>();
-        List<Soldier> soldiers = Optional.ofNullable(soldierRepository.findAllDesc())
-                .filter(list -> !list.isEmpty())
-                .orElseThrow(() ->
-                        new IllegalArgumentException("등록된 병사가 없습니다.")
-                );
-
-        return getSoldierDeviceResponseDtos(soldiers, dtos);
+        return deviceRepository.findAllDesc().stream()
+                .map(SoldierDeviceResponseDto::new)
+                .collect(Collectors.toList());
     }
 
     private List<SoldierDeviceResponseDto> getSoldierDeviceResponseDtos(List<Soldier> soldiers, List<SoldierDeviceResponseDto> dtos) {
