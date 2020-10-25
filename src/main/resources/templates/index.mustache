@@ -32,6 +32,7 @@
             <div class="header-body">
                 <div class="row align-items-center py-4">
                     <div class="col-lg-6 col-7">
+                        <i class="bg-"></i>
                         <h6 class="h2 text-white d-inline-block mb-0">실시간 기기 반납 현황</h6>
                     </div>
                 </div>
@@ -78,28 +79,23 @@
                                         "                            <span class='ml-3 h2 text-white font-weight-bold mb-0'>" + this.name + " (" + this.serviceNumber +")" + "</span>\n" +
                                         "                        </p>\n" +
                                         "                        <p class='col-sm-3 mb-0 pl-0 text-right'>\n" +
-                                        "                            <span class='badge badge-dot'>\n"
-
-                                var returnTime = this.returnTime
-
-                                if(typeof returnTime == "undefined" || returnTime == null || returnTime == ""){
-                                    str += "<span class='status mr-2'>미반납</span>"
-                                } else {
-                                    str += "<span class='status mr-2'>" + this.returnTime + "</span>"
-                                }
-
-                                str +=  "                                <i class='" + this.icon + "'></i>\n" +
+                                        "                            <span class='badge badge-dot'>\n" +
+                                        "                                <span class='status mr-2'>"+ getState(this.state) +"</span>" +
+                                        "                                <i class='" + this.icon + "'></i>\n" +
                                         "                            </span>\n" +
                                         "                        </p>\n" +
                                         "                    </div>\n" +
                                         "                    <div class='row'>\n" +
-                                        "                        <p class=\"col mb-0\">\n" +
+                                        "                        <p class='col mb-0'>\n" +
                                         "                            <span class='text-nowrap mr-2'>" + this.manufacturer + "</span>\n" +
                                         "                        </p>\n" +
                                         "                    </div>\n" +
-                                        "                    <div class=\"row\">\n" +
-                                        "                        <p class=\"col mb-0\">\n" +
+                                        "                    <div class='row'>\n" +
+                                        "                        <p class='col mb-0 text-left'>\n" +
                                         "                            <span class='text-sm mr-2'>ID : " + this.guid + "</span>\n" +
+                                        "                        </p>\n" +
+                                        "                        <p class='col mb-0 text-right pr-1'>\n" +
+                                        "                            <span class='text-sm mr-2'>"+ isTimeNull(this.returnTime) +"</span>\n" +
                                         "                        </p>\n" +
                                         "                    </div>\n" +
                                         "                </div>\n" +
@@ -109,6 +105,26 @@
                     $("#device_list").html(str);
                 },
             });
+
+            function getState(state){
+                if(state == "NON_PASS"){
+                    return "<span class='status mr-2'>미반납</span>"
+                } else if(state == "WEIGHT_FAULT"){
+                    return "<span class='status mr-2'>무게이상</span>"
+                } else if(state == "TIME_DELAY"){
+                    return "<span class='status mr-2'>지연반납</span>"
+                } else {
+                    return "<span class='status mr-2'>정상반납</span>"
+                }
+            }
+
+            function isTimeNull(time) {
+                if (typeof time == "undefined" || time == null || time == "") {
+                    return ""
+                } else {
+                    return time
+                }
+            }
         }
     });
 </script>

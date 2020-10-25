@@ -43,8 +43,10 @@ public class ReturnLogService {
         ReturnLog returnLog = dto.toEntity();
         returnLog.setDevice(device);
 
-
-        if(!isDeviceUsingTime(dto.getReturnTime(), rule)) {
+        if(!isWeightFault(dto.getWeight())) {
+            returnLog.stateWeightFault();
+        }
+        else if(!isDeviceUsingTime(dto.getReturnTime(), rule)) {
             returnLog.stateDelay();
         } else {
             returnLog.statePass();
@@ -55,6 +57,10 @@ public class ReturnLogService {
         returnLogRepository.save(returnLog);
 
         return bytes;
+    }
+
+    private boolean isWeightFault(Double weight) {
+        return (100.0 < weight) && (weight < 180.0) ? true : false;
     }
 
     public static boolean isDeviceUsingTime(Long millis, Rule rule) throws ParseException {
