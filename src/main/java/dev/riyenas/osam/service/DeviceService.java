@@ -8,7 +8,6 @@ import dev.riyenas.osam.domain.log.ReturnLog;
 import dev.riyenas.osam.domain.log.ReturnLogRepository;
 import dev.riyenas.osam.domain.soldier.Soldier;
 import dev.riyenas.osam.web.dto.device.DeviceLogResponseDto;
-import dev.riyenas.osam.web.dto.returnLog.ReturnLogResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,7 @@
 package dev.riyenas.osam.service;
 
 import dev.riyenas.osam.domain.admin.AdminRepository;
+import dev.riyenas.osam.web.dto.admin.AdminResponseDto;
 import dev.riyenas.osam.web.dto.admin.AdminRuleResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -22,5 +23,12 @@ public class AdminService {
         return adminRepository.findAll().stream()
                 .map(AdminRuleResponseDto::new)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public AdminResponseDto findBySignUpCode(String signUpCode) {
+        return new AdminResponseDto(adminRepository.findBySignUpCode(signUpCode).orElseThrow(() ->
+            new IllegalArgumentException("관리자를 찾을수 없습니다.")
+        ));
     }
 }
