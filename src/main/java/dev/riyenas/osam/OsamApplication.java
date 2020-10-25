@@ -1,8 +1,10 @@
 package dev.riyenas.osam;
 
 import lombok.extern.log4j.Log4j2;
+import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 import javax.annotation.PostConstruct;
 import java.util.Date;
@@ -12,6 +14,9 @@ import java.util.TimeZone;
 @SpringBootApplication
 public class OsamApplication {
 
+	private static volatile ConfigurableApplicationContext context;
+	private static ClassLoader mainThreadClassLoader;
+
 	@PostConstruct
 	public void started() {
 		TimeZone.setDefault(TimeZone.getTimeZone("Asia/Seoul"));
@@ -19,7 +24,20 @@ public class OsamApplication {
 	}
 
 	public static void main(String[] args) {
-		SpringApplication.run(OsamApplication.class, args);
+		mainThreadClassLoader = Thread.currentThread().getContextClassLoader();
+		context = SpringApplication.run(OsamApplication.class, args);
 	}
 
+	public static void restart() {
+		ApplicationArguments args = context.getBean(ApplicationArguments.class);
+
+		Thread thread = new Thread(() -> {
+			context.close();
+			context = SpringApplication.run(OsamApplication.class, args.getSourceArgs());
+		});
+
+		thread.setContextClassLoader(mainThreadClassLoader);
+		thread.setDaemon(false);
+		thread.start();
+	}
 }
