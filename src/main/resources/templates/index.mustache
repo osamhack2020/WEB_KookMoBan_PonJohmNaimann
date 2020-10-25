@@ -41,6 +41,7 @@
 
     <!-- Page content -->
     <div class="container-fluid mt--6">
+
         <div class="row" id="device_list">
 
         </div>
@@ -69,16 +70,15 @@
                     var str = "";
                     $(data).each(
                             function () {
-                                str += "<div class='col-xl-3 col-md-6'>"
-                                        + "<div class='card card-stats bg-dark text-white'>"
-                                        + "<div class='card-body'>"
-                                        + "<div class='row '>"
-                                        + "<span class='ml-3 h2 text-white font-weight-bold mb-0'>" + this.name + " (" + this.serviceNumber +")" + "</span></div>"
-                                        + "<div class='row'>"
-                                        + "<p class='col mb-0 text-left'>"
-                                        + "<span class='text-nowrap mr-2'>" + this.manufacturer + " (" + this.guid + ")" + "</span></p>"
-                                        + "<p class='col mb-0 text-right'>"
-                                        + "<span class='badge badge-dot'>"
+                                str += "<div class='col-xl-3 col-md-6'>\n" +
+                                        "            <div class='card card-stats bg-dark text-white'>\n" +
+                                        "                <div class='card-body'>\n" +
+                                        "                    <div class='row'>\n" +
+                                        "                        <p class='col-sm-9 mb-0 p-0 text-left'>\n" +
+                                        "                            <span class='ml-3 h2 text-white font-weight-bold mb-0'>" + this.name + " (" + this.serviceNumber +")" + "</span>\n" +
+                                        "                        </p>\n" +
+                                        "                        <p class='col-sm-3 mb-0 pl-0 text-right'>\n" +
+                                        "                            <span class='badge badge-dot'>\n"
 
                                 var returnTime = this.returnTime
 
@@ -88,7 +88,23 @@
                                     str += "<span class='status mr-2'>" + this.returnTime + "</span>"
                                 }
 
-                                str += "<i class='" + this.icon + "'></i></span></p></div></div></div></div>"
+                                str +=  "                                <i class='" + this.icon + "'></i>\n" +
+                                        "                            </span>\n" +
+                                        "                        </p>\n" +
+                                        "                    </div>\n" +
+                                        "                    <div class='row'>\n" +
+                                        "                        <p class=\"col mb-0\">\n" +
+                                        "                            <span class='text-nowrap mr-2'>" + this.manufacturer + "</span>\n" +
+                                        "                        </p>\n" +
+                                        "                    </div>\n" +
+                                        "                    <div class=\"row\">\n" +
+                                        "                        <p class=\"col mb-0\">\n" +
+                                        "                            <span class='text-sm mr-2'>ID : " + this.guid + "</span>\n" +
+                                        "                        </p>\n" +
+                                        "                    </div>\n" +
+                                        "                </div>\n" +
+                                        "            </div>\n" +
+                                        "        </div>"
                             });
                     $("#device_list").html(str);
                 },
