@@ -140,7 +140,7 @@
                             <div class="col-xl-6">
                                 <form>
                                     <label class="col-form-label"><b>기기 사진</b></label>
-                                    <img id="modal-photo" src="" style="height: auto">
+                                    <img id="modal-photo" src="" class="phone-img" onclick="fnImgPop(this.src)">
                                 </form>
                             </div>
                         </div>
@@ -163,7 +163,28 @@
 </body>
 </html>
 
+<style>
+    .phone-img {
+        object-fit: none;
+        object-position: center;
+        width: 100%;
+        max-height: 450px;
+    }
+</style>
+
 <script language="JavaScript">
+    function fnImgPop(url){
+        var popupX = (document.body.offsetWidth / 2) - (200 / 2);
+        var popupY= (window.screen.height / 2) - (300 / 2);
+        var img=new Image();
+        img.src=url;
+        var img_width=img.width;
+        var win_width=img.width+25;
+        var img_height=img.height;
+        var OpenWindow=window.open('','_blank', 'width='+img_width+', height='+img_height+', menubars=no, scrollbars=auto, left=' + popupX + ', top='+ popupY);
+        OpenWindow.document.write("<style>body{margin:0px;}</style><img src='"+url+"' width='"+win_width+"'>");
+    }
+
     $(document).ready(function () {
         getLogData()
 
