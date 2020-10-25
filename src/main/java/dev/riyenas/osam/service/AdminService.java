@@ -1,5 +1,6 @@
 package dev.riyenas.osam.service;
 
+import dev.riyenas.osam.domain.admin.Admin;
 import dev.riyenas.osam.domain.admin.AdminRepository;
 import dev.riyenas.osam.web.dto.admin.AdminResponseDto;
 import dev.riyenas.osam.web.dto.admin.AdminRuleResponseDto;
