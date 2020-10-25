@@ -1,7 +1,6 @@
 package dev.riyenas.osam.web.dto.returnLog;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.riyenas.osam.domain.device.Device;
 import dev.riyenas.osam.domain.log.ReturnLog;
 import dev.riyenas.osam.domain.soldier.Soldier;
