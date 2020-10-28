@@ -28,8 +28,12 @@ public class Admin {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "admin", orphanRemoval = true)
     private final List<Soldier> soldiers = new ArrayList<>();
 
-    @OneToOne(mappedBy = "admin")
+    @OneToOne(mappedBy = "admin", cascade = CascadeType.ALL, orphanRemoval = true)
     private Rule rule;
+
+    public void setRule(Rule rule) {
+        this.rule = rule;
+    }
 
     @Builder
     public Admin(Long id, String serviceNumber, String name, String password, String signUpCode, String unit, Rule rule) {
