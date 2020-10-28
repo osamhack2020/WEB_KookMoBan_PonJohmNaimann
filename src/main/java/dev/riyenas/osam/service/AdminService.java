@@ -32,4 +32,9 @@ public class AdminService {
             new IllegalArgumentException("관리자를 찾을수 없습니다.")
         ));
     }
+
+    @Transactional
+    public void create(Admin admin) {
+        adminRepository.save(admin);
+    }
 }
