@@ -1,6 +1,6 @@
 # 국방모바일반납 (Pon Johm Naimann-WEB 파트)
 
-![Java CI with Gradle](https://github.com/osamhack2020/WEB_KookMoBan_PonJohmNaimann/workflows/Java%20CI%20with%20Gradle/badge.svg) ![LICENSE](https://img.shields.io/github/license/osamhack2020/WEB_KookMoBan_PonJohmNaimann)
+![Java CI with Gradle](https://github.com/osamhack2020/WEB_KookMoBan_PonJohmNaimann/workflows/Java%20CI%20with%20Gradle/badge.svg) ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/osamhack2020/WEB_KookMoBan_PonJohmNaimann) ![LICENSE](https://img.shields.io/github/license/osamhack2020/WEB_KookMoBan_PonJohmNaimann)
 
 ## Introduction
 <p align="center">
