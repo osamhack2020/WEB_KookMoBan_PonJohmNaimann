@@ -2,7 +2,7 @@
 
 # KookMoBan (Pon Johm Naimann-WEB part)
 
-![Java CI with Gradle](https://github.com/osamhack2020/WEB_KookMoBan_PonJohmNaimann/workflows/Java%20CI%20with%20Gradle/badge.svg) ![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/osamhack2020/WEB_KookMoBan_PonJohmNaimann) ![LICENSE](https://img.shields.io/github/license/osamhack2020/WEB_KookMoBan_PonJohmNaimann)
+[![Java CI with Gradle](https://github.com/osamhack2020/WEB_KookMoBan_PonJohmNaimann/workflows/Java%20CI%20with%20Gradle/badge.svg)](https://github.com/osamhack2020/WEB_KookMoBan_PonJohmNaimann/actions) [![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/osamhack2020/WEB_KookMoBan_PonJohmNaimann)](https://github.com/osamhack2020/WEB_KookMoBan_PonJohmNaimann/releases) [![LICENSE](https://img.shields.io/github/license/osamhack2020/WEB_KookMoBan_PonJohmNaimann)](https://github.com/osamhack2020/WEB_KookMoBan_PonJohmNaimann/blob/develop/LICENSE)
 
 ## Introduction
 <p align="center">
